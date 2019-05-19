@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { StoreContext } from "../../../../context/StoreContext";
 import { Title } from "../../../common-ui";
 
 export const HomePage = () => {
+  const store = useContext(StoreContext);
+  const [gateaux, setGateaux] = useState([] as string[]);
+
+  useEffect(() => {
+    let listeGateaux = [] as string[];
+    if (store.data) {
+      Object.keys(store.data.Blog.Gateaux).map((gateau: string) =>
+        listeGateaux.push(gateau)
+      );
+    }
+    setGateaux(listeGateaux);
+  }, [store]);
+
+  console.log(store);
+
+  if (!store.data) return <div>CHARGEMENT !!!!!!!!!!!!!!!</div>;
+
   return (
     <div>
       <Title>Accueil</Title>
@@ -25,6 +43,7 @@ export const HomePage = () => {
         Enfin, si vous voulez en savoir un peu plus sur l'origine de la
         réalisation de ce site, rendez-vous dans l'onglet A Propos :).
       </p>
+      <div>{gateaux && gateaux.map((gateau: any) => <div>{gateau}</div>)}</div>
     </div>
   );
 };

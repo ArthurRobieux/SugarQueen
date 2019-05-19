@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useReducer, useEffect } from "react";
 import {
   Route,
   Switch,
   RouteComponentProps,
   withRouter
 } from "react-router-dom";
+import { StoreContext, StoreContextValue } from "../context/StoreContext";
+import { reducer } from "./reducer";
+import { receiveData } from "./actions";
 
 import styles from "./styles.module.scss";
 import { Page } from "../modules/common-ui";
@@ -21,18 +24,30 @@ export type RoutesProps = {
 } & RouteComponentProps;
 
 const App = withRouter(({ id, history }: RoutesProps) => {
+  const [state, dispatch] = useReducer(reducer, {
+    data: null
+  });
+
+  useEffect(() => {
+    receiveData(dispatch);
+  }, []);
+
+  const contextValue: StoreContextValue = { ...state, dispatch };
+
   return (
     <Page>
-      <Header />
-      <MainMenu />
-      <hr className={styles.hr} />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/catalogue/" component={Catalogue} />
-        <Route path="/blog/" component={Blog} />
-        <Route path="/contact/" component={Contact} />
-        <Route path="/apropos/" component={Apropos} />
-      </Switch>
+      <StoreContext.Provider value={contextValue}>
+        <Header />
+        <MainMenu />
+        <hr className={styles.hr} />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/catalogue/" component={Catalogue} />
+          <Route path="/blog/" component={Blog} />
+          <Route path="/contact/" component={Contact} />
+          <Route path="/apropos/" component={Apropos} />
+        </Switch>
+      </StoreContext.Provider>
     </Page>
   );
 });
