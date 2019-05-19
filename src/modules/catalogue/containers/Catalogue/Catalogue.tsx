@@ -9,13 +9,9 @@ export const Catalogue = () => {
   const [gateaux, setGateaux] = useState([] as string[]);
 
   useEffect(() => {
-    let listeGateaux = [] as string[];
-    if (store.data) {
-      Object.keys(store.data.Blog.Gateaux).map((gateau: string) =>
-        listeGateaux.push(gateau)
-      );
+    if (store.data && store.data.Gateaux) {
+      setGateaux(store.data.Gateaux);
     }
-    setGateaux(listeGateaux);
   }, [store]);
 
   if (!store.data) return <Loader />;
@@ -24,7 +20,14 @@ export const Catalogue = () => {
     <div>
       <Title>Catalogue</Title>
       <div className={styles.blocks}>Bienvenue dans le catalogue</div>
-      <div>{gateaux && gateaux.map((gateau: any) => <div>{gateau}</div>)}</div>
+      <div>
+        {gateaux &&
+          gateaux.map((gateau: any) => (
+            <div>
+              {gateau.name} {gateau.description}
+            </div>
+          ))}
+      </div>
     </div>
   );
 };
