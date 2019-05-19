@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../../../context/StoreContext";
-import { Title } from "../../../common-ui";
+import { Title, Loader } from "../../../common-ui";
 
 export const HomePage = () => {
   const store = useContext(StoreContext);
@@ -16,7 +16,7 @@ export const HomePage = () => {
     setGateaux(listeGateaux);
   }, [store]);
 
-  if (!store.data) return <div>CHARGEMENT !!!!!!!!!!!!!!!</div>;
+  if (!store.data) return <Loader />;
 
   return (
     <div>

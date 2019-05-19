@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../../../context/StoreContext";
-import { Title } from "../../../common-ui";
+import { Title, Loader } from "../../../common-ui";
 
 import styles from "./styles.module.scss";
 
@@ -18,7 +18,7 @@ export const Catalogue = () => {
     setGateaux(listeGateaux);
   }, [store]);
 
-  if (!store.data) return <div>CHARGEMENT !!!!!!!!!!!!!!!</div>;
+  if (!store.data) return <Loader />;
 
   return (
     <div>
