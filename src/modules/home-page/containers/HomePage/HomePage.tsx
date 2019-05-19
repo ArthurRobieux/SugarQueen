@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import { Title, Block, Page } from "../../../common-ui";
-import { Header } from "../Header";
-import { MainMenu } from "../MainMenu";
+import { Title, Block } from "../../../common-ui";
 
 import styles from "./styles.module.scss";
 
 export const HomePage = () => {
   const [count, setCount] = useState(0);
   return (
-    <Page>
-      <Header />
-      <MainMenu />
-      <hr />
+    <div>
       <Title>Home Page</Title>
       <div className={styles.blocks}>
         <Block>
@@ -22,6 +17,6 @@ export const HomePage = () => {
           <button onClick={() => setCount(count + 1)}>+</button>
         </Block>
       </div>
-    </Page>
+    </div>
   );
 };
