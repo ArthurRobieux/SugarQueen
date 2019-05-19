@@ -1,14 +1,18 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import { SocialNetworkButton } from "../../modules/common-ui/SocialNetworkButton";
 
 export const Header = () => {
   return (
     <div className={styles.header}>
+      <div className={styles.socialNetworks}>
+        <SocialNetworkButton socialNetwork="facebook" />
+        <SocialNetworkButton socialNetwork="instagram" />
+      </div>
       <img
-        src={
-          "https://static.wixstatic.com/media/723aa0_0c82db70814144e78db37b7cfd2b520b~mv2.png/v1/fill/w_244,h_122,al_c,q_80,usm_0.66_1.00_0.01/SugarQueenBlackLogo.webp"
-        }
-        alt={"logo"}
+        src={require("../../assets/img/SugarQueenBlackLogo.png")}
+        className={styles.logo}
+        alt="logo"
       />
     </div>
   );

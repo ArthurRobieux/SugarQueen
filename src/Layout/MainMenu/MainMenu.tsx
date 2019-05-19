@@ -14,6 +14,9 @@ export const MainMenu = () => {
       <NavLink to="/blog/" className={styles.tab}>
         Blog
       </NavLink>
+      <NavLink to="/contact/" className={styles.tab}>
+        Contact
+      </NavLink>
       <NavLink to="/apropos/" className={styles.tab}>
         A propos
       </NavLink>
