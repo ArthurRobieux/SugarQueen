@@ -16,8 +16,6 @@ export const HomePage = () => {
     setGateaux(listeGateaux);
   }, [store]);
 
-  console.log(store);
-
   if (!store.data) return <div>CHARGEMENT !!!!!!!!!!!!!!!</div>;
 
   return (
