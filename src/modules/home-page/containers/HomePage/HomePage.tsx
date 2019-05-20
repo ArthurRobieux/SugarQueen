@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../../../context/StoreContext";
 import { Title, Loader } from "../../../common-ui";
+import firebase from "firebase";
 
 export const HomePage = () => {
   const store = useContext(StoreContext);
@@ -11,6 +12,18 @@ export const HomePage = () => {
       setGateaux(store.data.Gateaux);
     }
   }, [store]);
+
+  const postFirebase = () => {
+    firebase
+      .database()
+      .ref("Gateaux")
+      .push({
+        name: "Tarte au citron",
+        description: "Citruuus"
+      });
+  };
+
+  console.log("Gateaux", gateaux);
 
   if (!store.data) return <Loader />;
 
@@ -37,6 +50,7 @@ export const HomePage = () => {
         Enfin, si vous voulez en savoir un peu plus sur l'origine de la
         réalisation de ce site, rendez-vous dans l'onglet A Propos :).
       </p>
+      <button onClick={() => postFirebase()}>POST</button>
       <div>
         {gateaux &&
           gateaux.map((gateau: any) => (
