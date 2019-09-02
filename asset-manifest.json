@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sugarqueen/static/css/main.f599ebdf.chunk.css",
+    "main.js": "/sugarqueen/static/js/main.92a493dd.chunk.js",
+    "main.js.map": "/sugarqueen/static/js/main.92a493dd.chunk.js.map",
+    "runtime~main.js": "/sugarqueen/static/js/runtime~main.a00b5550.js",
+    "runtime~main.js.map": "/sugarqueen/static/js/runtime~main.a00b5550.js.map",
+    "static/js/2.8426fd7f.chunk.js": "/sugarqueen/static/js/2.8426fd7f.chunk.js",
+    "static/js/2.8426fd7f.chunk.js.map": "/sugarqueen/static/js/2.8426fd7f.chunk.js.map",
+    "index.html": "/sugarqueen/index.html",
+    "precache-manifest.f3dc169b81a3a19a61aa17baeed78bce.js": "/sugarqueen/precache-manifest.f3dc169b81a3a19a61aa17baeed78bce.js",
+    "service-worker.js": "/sugarqueen/service-worker.js",
+    "static/css/main.f599ebdf.chunk.css.map": "/sugarqueen/static/css/main.f599ebdf.chunk.css.map"
+  }
+}
