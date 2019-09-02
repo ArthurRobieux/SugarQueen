@@ -51,14 +51,6 @@ export const HomePage = () => {
         réalisation de ce site, rendez-vous dans l'onglet A Propos :).
       </p>
       <button onClick={() => postFirebase()}>POST</button>
-      <div>
-        {gateaux &&
-          gateaux.map((gateau: any) => (
-            <div>
-              {gateau.name} {gateau.description}
-            </div>
-          ))}
-      </div>
     </div>
   );
 };
