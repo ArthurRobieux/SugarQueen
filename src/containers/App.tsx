@@ -5,9 +5,13 @@ import {
   RouteComponentProps,
   withRouter
 } from "react-router-dom";
+
+import withFirebaseAuth from "react-with-firebase-auth";
+import { firebaseAppAuth, providers } from "../firebaseConfig";
+
 import { StoreContext, StoreContextValue } from "../context/StoreContext";
 import { reducer } from "./reducer";
-import { receiveData } from "./actions";
+import { receiveData, receiveUser } from "./actions";
 
 import styles from "./styles.module.scss";
 import { Page } from "../modules/common-ui";
@@ -18,38 +22,95 @@ import { Contact } from "../modules/contact";
 import { Apropos } from "../modules/a-propos";
 import { Header } from "../Layout/Header";
 import { MainMenu } from "../Layout/MainMenu";
+import { Admin } from "../modules/admin";
 
 export type RoutesProps = {
+  user: any;
+  signOut: any;
+  signInWithGoogle: any;
+  createUserWithEmailAndPassword: any;
+  signInWithEmailAndPassword: any;
   id: number;
 } & RouteComponentProps;
 
-const App = withRouter(({ id, history }: RoutesProps) => {
-  const [state, dispatch] = useReducer(reducer, {
-    data: null
-  });
+const App = withRouter(
+  ({
+    user,
+    signOut,
+    signInWithGoogle,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+  }: RoutesProps) => {
+    const [state, dispatch] = useReducer(reducer, {
+      data: null,
+      user: null
+    });
 
-  useEffect(() => {
-    receiveData(dispatch);
-  }, []);
+    useEffect(() => {
+      receiveData(dispatch);
+      receiveUser(dispatch, user);
+    }, [user]);
 
-  const contextValue: StoreContextValue = { ...state, dispatch };
+    const contextValue: StoreContextValue = { ...state, dispatch };
 
-  return (
-    <Page>
-      <StoreContext.Provider value={contextValue}>
-        <Header />
-        <MainMenu />
-        <hr className={styles.hr} />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/catalogue/" component={Catalogue} />
-          <Route path="/blog/" component={Blog} />
-          <Route path="/contact/" component={Contact} />
-          <Route path="/apropos/" component={Apropos} />
-        </Switch>
-      </StoreContext.Provider>
-    </Page>
-  );
-});
+    return (
+      <Page>
+        {console.log("USER", user)}
+        {user ? (
+          <p>Hello, {user.displayName ? user.displayName : user.email}</p>
+        ) : (
+          <p>Please sign in.</p>
+        )}
+        {user ? (
+          <button onClick={signOut}>Sign out</button>
+        ) : (
+          <button onClick={signInWithGoogle}>Sign in with Google</button>
+        )}
 
-export default App;
+        {!user && (
+          <>
+            <button
+              onClick={() =>
+                createUserWithEmailAndPassword(
+                  "arthur.robieux2@gmail.com",
+                  "test1234"
+                )
+              }
+            >
+              Create email
+            </button>
+
+            <button
+              onClick={() =>
+                signInWithEmailAndPassword(
+                  "arthur.robieux2@gmail.com",
+                  "test1234"
+                )
+              }
+            >
+              Sign in withemail
+            </button>
+          </>
+        )}
+        <StoreContext.Provider value={contextValue}>
+          <Header />
+          <MainMenu />
+          <hr className={styles.hr} />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/catalogue/" component={Catalogue} />
+            <Route path="/blog/" component={Blog} />
+            <Route path="/contact/" component={Contact} />
+            <Route path="/apropos/" component={Apropos} />
+            <Route path="/admin/" component={Admin} />
+          </Switch>
+        </StoreContext.Provider>
+      </Page>
+    );
+  }
+);
+
+export default withFirebaseAuth({
+  providers,
+  firebaseAppAuth
+})(App as any);
