@@ -1,0 +1,25 @@
+.gateau {
+  border: 1px solid gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.name {
+  font-size: 18px;
+  padding: 10px;
+}
+
+.description {
+  font-size: 14px;
+  color: gray;
+  padding: 10px;
+}
+
+.image {
+  max-width: 200px;
+  max-height: 200px;
+  padding: 10px;
+}

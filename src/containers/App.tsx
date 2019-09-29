@@ -11,7 +11,7 @@ import { firebaseAppAuth, providers } from "../firebaseConfig";
 
 import { StoreContext, StoreContextValue } from "../context/StoreContext";
 import { reducer } from "./reducer";
-import { receiveData, receiveUser } from "./actions";
+import { receiveUser } from "./actions";
 
 import styles from "./styles.module.scss";
 import { Page, adminEmails } from "../modules/common-ui";
@@ -42,12 +42,10 @@ const App = withRouter(
     signInWithEmailAndPassword
   }: RoutesProps) => {
     const [state, dispatch] = useReducer(reducer, {
-      data: null,
       user: null
     });
 
     useEffect(() => {
-      receiveData(dispatch);
       receiveUser(dispatch, user);
     }, [user]);
 

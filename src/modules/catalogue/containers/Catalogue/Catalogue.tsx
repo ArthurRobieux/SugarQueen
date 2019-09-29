@@ -1,21 +1,31 @@
-import React, { useContext, useState, useEffect } from "react";
-import { StoreContext } from "../../../../context/StoreContext";
-import { Title, Loader } from "../../../common-ui";
+import React, { useState, useEffect } from "react";
+import firebase from "firebase";
+import { Title, Gateau } from "../../../common-ui";
 
 import styles from "./styles.module.scss";
 
 export const Catalogue = () => {
-  const store = useContext(StoreContext);
-  const [gateaux, setGateaux] = useState({} as any);
-  const [form, setForm] = useState({ name: "", description: "" });
+  const [gateaux, setGateaux] = useState([] as any[]);
 
+  const onFetchData = () => {
+    firebase
+      .firestore()
+      .collection("Gateaux")
+      .get()
+      .then((s: any) =>
+        setGateaux(
+          s.docs.map((d: any) => {
+            return d.data();
+          })
+        )
+      )
+      .catch(r => console.log("R", r));
+  };
+
+  // Get gateaux
   useEffect(() => {
-    if (store.data && store.data.Gateaux) {
-      setGateaux(store.data.Gateaux);
-    }
-  }, [store]);
-
-  if (!store.data) return <Loader />;
+    onFetchData();
+  }, []);
 
   return (
     <div>
@@ -23,10 +33,8 @@ export const Catalogue = () => {
       <div className={styles.blocks}>Bienvenue dans le catalogue</div>
       <div>
         {gateaux &&
-          Object.keys(gateaux).map((key: any) => (
-            <div>
-              {gateaux[key].name} {gateaux[key].description}
-            </div>
+          gateaux.map((gateau: any) => (
+            <Gateau key={gateau.image} gateau={gateau} />
           ))}
       </div>
     </div>

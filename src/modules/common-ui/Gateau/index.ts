@@ -1,0 +1,1 @@
+export { Gateau } from "./Gateau";
