@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../../../context/StoreContext";
-import { Title, Loader } from "../../../common-ui";
+import { Title, Loader, adminEmails } from "../../../common-ui";
 import firebase from "firebase";
 
 import styles from "./styles.module.scss";
@@ -9,12 +9,6 @@ export const Admin = () => {
   const store = useContext(StoreContext);
   const [gateaux, setGateaux] = useState({} as any);
   const [form, setForm] = useState({ name: "", description: "" });
-  const adminEmails = [
-    "arthur.robieux@gmail.com",
-    "arthur@sporteasy.net",
-    "sugarqueen.pro@gmail.com",
-    "alice_dupuy@hotmail.fr"
-  ];
 
   useEffect(() => {
     if (store.data && store.data.Gateaux) {
@@ -36,7 +30,11 @@ export const Admin = () => {
     <div>
       <Title>Admin</Title>
       <div className={styles.blocks}>
-        Bienvenue dans l'Admin {store.user && store.user.displayName}
+        Bienvenue dans l'Admin{" "}
+        {store.user &&
+          (store.user.displayName
+            ? store.user.displayName
+            : store.user.email.split("@")[0])}
       </div>
       {store.user && adminEmails.includes(store.user.email) && (
         <>

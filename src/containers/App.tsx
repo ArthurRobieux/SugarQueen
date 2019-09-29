@@ -14,7 +14,7 @@ import { reducer } from "./reducer";
 import { receiveData, receiveUser } from "./actions";
 
 import styles from "./styles.module.scss";
-import { Page } from "../modules/common-ui";
+import { Page, adminEmails } from "../modules/common-ui";
 import { HomePage } from "../modules/home-page";
 import { Catalogue } from "../modules/catalogue";
 import { Blog } from "../modules/blog";
@@ -55,45 +55,14 @@ const App = withRouter(
 
     return (
       <Page>
-        {console.log("USER", user)}
-        {user ? (
-          <p>Hello, {user.displayName ? user.displayName : user.email}</p>
-        ) : (
-          <p>Please sign in.</p>
-        )}
-        {user ? (
-          <button onClick={signOut}>Sign out</button>
-        ) : (
-          <button onClick={signInWithGoogle}>Sign in with Google</button>
-        )}
-
-        {!user && (
-          <>
-            <button
-              onClick={() =>
-                createUserWithEmailAndPassword(
-                  "arthur.robieux2@gmail.com",
-                  "test1234"
-                )
-              }
-            >
-              Create email
-            </button>
-
-            <button
-              onClick={() =>
-                signInWithEmailAndPassword(
-                  "arthur.robieux2@gmail.com",
-                  "test1234"
-                )
-              }
-            >
-              Sign in withemail
-            </button>
-          </>
-        )}
         <StoreContext.Provider value={contextValue}>
-          <Header />
+          <Header
+            user={user}
+            signOut={signOut}
+            signInWithGoogle={signInWithGoogle}
+            signInWithEmailAndPassword={signInWithEmailAndPassword}
+            createUserWithEmailAndPassword={createUserWithEmailAndPassword}
+          />
           <MainMenu />
           <hr className={styles.hr} />
           <Switch>
@@ -102,7 +71,9 @@ const App = withRouter(
             <Route path="/blog/" component={Blog} />
             <Route path="/contact/" component={Contact} />
             <Route path="/apropos/" component={Apropos} />
-            <Route path="/admin/" component={Admin} />
+            {user && adminEmails.includes(user.email) && (
+              <Route path="/admin/" component={Admin} />
+            )}
           </Switch>
         </StoreContext.Provider>
       </Page>
