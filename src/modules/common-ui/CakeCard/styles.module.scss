@@ -1,15 +1,20 @@
-.gateau {
+.cake {
   border: 1px solid gray;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
   margin: 10px 0;
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .name {
   font-size: 18px;
   padding: 10px;
+  color: black;
 }
 
 .description {

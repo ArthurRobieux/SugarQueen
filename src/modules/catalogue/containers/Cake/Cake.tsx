@@ -1,15 +1,43 @@
-import React, { useContext, useState, useEffect } from "react";
-import { StoreContext } from "../../../../context/StoreContext";
-import { Title, CakeCard, adminEmails, randomToken } from "../../../common-ui";
+import React, { useEffect, useState, useContext } from "react";
 import firebase from "firebase";
-import slugify from "slugify";
-
-import styles from "./styles.module.scss";
+import { RouteComponentProps } from "react-router";
+import { CakeCard, Loader, adminEmails, randomToken } from "../../../common-ui";
+import { StoreContext } from "../../../../context/StoreContext";
 import { storageRef } from "../../../../firebaseConfig";
+import styles from "./styles.module.scss";
 
-export const Admin = () => {
+export type CakeProps = RouteComponentProps<{ id: string }>;
+
+export const Cake = ({ match }: CakeProps) => {
   const store = useContext(StoreContext);
-  const [cakes, setCakes] = useState([] as any);
+
+  const [cake, setCake] = useState();
+
+  const onFetchData = () => {
+    firebase
+      .firestore()
+      .collection("Cakes")
+      .doc(match.params.id)
+      .get()
+      .then(cake => {
+        const c = cake.data();
+        setCake(c);
+        setForm({
+          name: c ? c.name : "",
+          description: c ? c.description : "",
+          image1: null,
+          image2: null,
+          image3: null,
+          image4: null,
+          image5: null
+        });
+      });
+  };
+
+  useEffect(() => {
+    onFetchData();
+  }, []);
+
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -20,26 +48,7 @@ export const Admin = () => {
     image5: null as any
   });
 
-  const onFetchData = () => {
-    firebase
-      .firestore()
-      .collection("Cakes")
-      .get()
-      .then((s: any) =>
-        setCakes(
-          s.docs.map((d: any) => {
-            return d.data();
-          })
-        )
-      )
-      .catch(r => console.log("R", r));
-  };
-
-  useEffect(() => {
-    onFetchData();
-  }, []);
-
-  const addCake = () => {
+  const updateCake = () => {
     const image1Token = randomToken();
     const image2Token = randomToken();
     const image3Token = randomToken();
@@ -156,33 +165,42 @@ export const Admin = () => {
         firebase
           .firestore()
           .collection("Cakes")
-          .doc(slugify(form.name).toLowerCase())
-          .set({
-            id: slugify(form.name).toLowerCase(),
+          .doc(match.params.id)
+          .update({
             name: form.name,
             description: form.description,
-            image1: url1,
-            image2: url2,
-            image3: url3,
-            image4: url4,
-            image5: url5,
-            date: new Date()
+            image1: url1 || cake.image1,
+            image2: url2 || cake.image2,
+            image3: url3 || cake.image3,
+            image4: url4 || cake.image4,
+            image5: url5 || cake.image5
           })
           .then(() => onFetchData());
       });
     });
   };
 
+  if (!cake) return <Loader />;
+
   return (
     <div>
-      <Title>Admin</Title>
-      <div className={styles.blocks}>
-        Bienvenue dans l'Admin{" "}
-        {store.user &&
-          (store.user.displayName
-            ? store.user.displayName
-            : store.user.email.split("@")[0])}
-      </div>
+      <div>Détail du gateau : {cake.name}</div>
+      <CakeCard cake={cake} />
+      {cake.image1 && (
+        <img src={cake.image1} className={styles.image} alt="img" />
+      )}
+      {cake.image2 && (
+        <img src={cake.image2} className={styles.image} alt="img" />
+      )}
+      {cake.image3 && (
+        <img src={cake.image3} className={styles.image} alt="img" />
+      )}
+      {cake.image4 && (
+        <img src={cake.image4} className={styles.image} alt="img" />
+      )}
+      {cake.image5 && (
+        <img src={cake.image5} className={styles.image} alt="img" />
+      )}
       {store.user && adminEmails.includes(store.user.email) && (
         <>
           Nom
@@ -249,14 +267,9 @@ export const Admin = () => {
               })
             }
           />
-          <button onClick={() => addCake()}>Ajouter le gateau</button>
+          <button onClick={() => updateCake()}>Mettre à jour le gateau</button>
         </>
       )}
-
-      <div>-----</div>
-
-      {cakes &&
-        cakes.map((cake: any) => <CakeCard key={cake.image} cake={cake} />)}
     </div>
   );
 };

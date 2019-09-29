@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
-import { Title, Gateau } from "../../../common-ui";
+import { Title, CakeCard } from "../../../common-ui";
 
 import styles from "./styles.module.scss";
 
 export const Catalogue = () => {
-  const [gateaux, setGateaux] = useState([] as any[]);
+  const [cakes, setCakes] = useState([] as any[]);
 
   const onFetchData = () => {
     firebase
       .firestore()
-      .collection("Gateaux")
+      .collection("Cakes")
       .get()
       .then((s: any) =>
-        setGateaux(
+        setCakes(
           s.docs.map((d: any) => {
             return d.data();
           })
@@ -22,7 +22,6 @@ export const Catalogue = () => {
       .catch(r => console.log("R", r));
   };
 
-  // Get gateaux
   useEffect(() => {
     onFetchData();
   }, []);
@@ -32,10 +31,8 @@ export const Catalogue = () => {
       <Title>Catalogue</Title>
       <div className={styles.blocks}>Bienvenue dans le catalogue</div>
       <div>
-        {gateaux &&
-          gateaux.map((gateau: any) => (
-            <Gateau key={gateau.image} gateau={gateau} />
-          ))}
+        {cakes &&
+          cakes.map((cake: any) => <CakeCard key={cake.image} cake={cake} />)}
       </div>
     </div>
   );

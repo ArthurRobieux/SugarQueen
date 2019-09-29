@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Title, Gateau } from "../../../common-ui";
+import { Title, CakeCard } from "../../../common-ui";
 import firebase from "firebase";
 
 export const HomePage = () => {
-  const [gateaux, setGateaux] = useState([] as any[]);
+  const [cakes, setCakes] = useState([] as any[]);
 
   const onFetchData = () => {
     firebase
       .firestore()
-      .collection("Gateaux")
+      .collection("Cakes")
       .get()
       .then((s: any) =>
-        setGateaux(
+        setCakes(
           s.docs.map((d: any) => {
             return d.data();
           })
@@ -20,7 +20,6 @@ export const HomePage = () => {
       .catch(r => console.log("R", r));
   };
 
-  // Get gateaux
   useEffect(() => {
     onFetchData();
   }, []);
@@ -47,10 +46,8 @@ export const HomePage = () => {
         Enfin, si vous voulez en savoir un peu plus sur l'origine de la
         réalisation de ce site, rendez-vous dans l'onglet A Propos :).
       </p>
-      {gateaux &&
-        gateaux.map((gateau: any) => (
-          <Gateau key={gateau.image} gateau={gateau} />
-        ))}
+      {cakes &&
+        cakes.map((cake: any) => <CakeCard key={cake.image} cake={cake} />)}
     </div>
   );
 };
