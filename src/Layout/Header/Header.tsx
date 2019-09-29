@@ -18,32 +18,17 @@ export const Header = ({
 }: HeaderProps) => {
   return (
     <div className={styles.header}>
-      {user ? (
+      {user && (
         <p>
-          Hello,{" "}
+          Bonjour,{" "}
           {user.displayName ? user.displayName : user.email.split("@")[0]}
+          <button onClick={signOut}>Se déconnecter</button>
         </p>
-      ) : (
-        <p>Please sign in.</p>
-      )}
-      {user ? (
-        <button onClick={signOut}>Sign out</button>
-      ) : (
-        <button onClick={signInWithGoogle}>Sign in with Google</button>
       )}
 
       {!user && (
         <>
-          <button
-            onClick={() =>
-              createUserWithEmailAndPassword(
-                "arthur.robieux2@gmail.com",
-                "test1234"
-              )
-            }
-          >
-            Create email
-          </button>
+          <p>Se connecter</p>
 
           <button
             onClick={() =>
@@ -53,7 +38,20 @@ export const Header = ({
               )
             }
           >
-            Sign in withemail
+            Se connecter
+          </button>
+
+          <button onClick={signInWithGoogle}>Se connecter avec Google</button>
+
+          <button
+            onClick={() =>
+              createUserWithEmailAndPassword(
+                "arthur.robieux2@gmail.com",
+                "test1234"
+              )
+            }
+          >
+            Créer un compte
           </button>
         </>
       )}
