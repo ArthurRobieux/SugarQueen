@@ -48,6 +48,7 @@ export const EditArticle = ({ match }: EditArticleProps) => {
   });
 
   const updateArticle = () => {
+    setLoading(true);
     const imageToken = randomToken();
 
     const pro = [] as any[];
@@ -120,6 +121,7 @@ export const EditArticle = ({ match }: EditArticleProps) => {
         }
         description="Image 1"
         value={form.image}
+        oldValue={article.image}
       />
       {loading ? (
         <FormLoader />

@@ -31,7 +31,7 @@ export const Catalogue = () => {
     <div>
       <Title>Bienvenue dans le catalogue</Title>
       {store.user && adminEmails.includes(store.user.email) && (
-        <Button to="/catalogue/create/" description="Ajouter" />
+        <Button to="/catalogue/create/" description="Ajouter un article" />
       )}
       <div>
         {articles &&

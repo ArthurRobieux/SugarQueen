@@ -221,6 +221,7 @@ export const EditPost = ({ match }: EditPostProps) => {
         }
         description="Image 1"
         value={form.image1}
+        oldValue={post.image1}
       />
       <FileInput
         onChange={evt =>
@@ -231,6 +232,7 @@ export const EditPost = ({ match }: EditPostProps) => {
         }
         description="Image 2"
         value={form.image2}
+        oldValue={post.image2}
       />
       <FileInput
         onChange={evt =>
@@ -241,6 +243,7 @@ export const EditPost = ({ match }: EditPostProps) => {
         }
         description="Image 3"
         value={form.image3}
+        oldValue={post.image3}
       />
       <FileInput
         onChange={evt =>
@@ -251,6 +254,7 @@ export const EditPost = ({ match }: EditPostProps) => {
         }
         description="Image 4"
         value={form.image4}
+        oldValue={post.image4}
       />
       <FileInput
         onChange={evt =>
@@ -261,6 +265,7 @@ export const EditPost = ({ match }: EditPostProps) => {
         }
         description="Image 5"
         value={form.image5}
+        oldValue={post.image5}
       />
 
       {loading ? (

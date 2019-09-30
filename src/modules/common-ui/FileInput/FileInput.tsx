@@ -7,11 +7,17 @@ export type FileInputProps = {
   onChange: (e: any) => void;
   description: string;
   value: any;
+  oldValue?: string | null;
 };
 
 const imagesFormats = ["image/png", "image/jpg", "image/jpeg"];
 
-export const FileInput = ({ onChange, description, value }: FileInputProps) => {
+export const FileInput = ({
+  onChange,
+  description,
+  value,
+  oldValue
+}: FileInputProps) => {
   return (
     <div className={styles.fileInputContainer}>
       <div className={styles.description}>{description}</div>
@@ -23,12 +29,14 @@ export const FileInput = ({ onChange, description, value }: FileInputProps) => {
           onChange={evt => onChange(evt)}
         />
       </label>
-      {value && imagesFormats.includes(value.type) && (
+      {value && imagesFormats.includes(value.type) ? (
         <img
           src={URL.createObjectURL(value)}
           className={styles.preview}
           alt="Preview"
         />
+      ) : (
+        oldValue && <img src={oldValue} className={styles.preview} alt="old" />
       )}
     </div>
   );
