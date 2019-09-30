@@ -1,27 +1,29 @@
 import React, { useEffect, useState, useContext } from "react";
 import firebase from "firebase";
 import { RouteComponentProps } from "react-router";
-import { CakeCard, Loader, adminEmails, randomToken } from "../../../common-ui";
+import { Loader, adminEmails, randomToken } from "../../../common-ui";
 import { StoreContext } from "../../../../context/StoreContext";
 import { storageRef } from "../../../../firebaseConfig";
+import { PostCard } from "../PostCard";
+
 import styles from "./styles.module.scss";
 
-export type CakeProps = RouteComponentProps<{ id: string }>;
+export type PostProps = RouteComponentProps<{ id: string }>;
 
-export const Cake = ({ match }: CakeProps) => {
+export const Post = ({ match }: PostProps) => {
   const store = useContext(StoreContext);
 
-  const [cake, setCake] = useState();
+  const [post, setPost] = useState();
 
   const onFetchData = () => {
     firebase
       .firestore()
-      .collection("Cakes")
+      .collection("Blog")
       .doc(match.params.id)
       .get()
-      .then(cake => {
-        const c = cake.data();
-        setCake(c);
+      .then(post => {
+        const c = post.data();
+        setPost(c);
         setForm({
           name: c ? c.name : "",
           description: c ? c.description : "",
@@ -48,7 +50,7 @@ export const Cake = ({ match }: CakeProps) => {
     image5: null as any
   });
 
-  const updateCake = () => {
+  const updatePost = () => {
     const image1Token = randomToken();
     const image2Token = randomToken();
     const image3Token = randomToken();
@@ -164,42 +166,42 @@ export const Cake = ({ match }: CakeProps) => {
       Promise.all(promises).then(() => {
         firebase
           .firestore()
-          .collection("Cakes")
+          .collection("Blog")
           .doc(match.params.id)
           .update({
             name: form.name,
             description: form.description,
-            image1: url1 || cake.image1,
-            image2: url2 || cake.image2,
-            image3: url3 || cake.image3,
-            image4: url4 || cake.image4,
-            image5: url5 || cake.image5
+            image1: url1 || post.image1,
+            image2: url2 || post.image2,
+            image3: url3 || post.image3,
+            image4: url4 || post.image4,
+            image5: url5 || post.image5
           })
           .then(() => onFetchData());
       });
     });
   };
 
-  if (!cake) return <Loader />;
+  if (!post) return <Loader />;
 
   return (
     <div>
-      <div>Détail du gateau : {cake.name}</div>
-      <CakeCard cake={cake} />
-      {cake.image1 && (
-        <img src={cake.image1} className={styles.image} alt="img" />
+      <div>Détail du gateau : {post.name}</div>
+      <PostCard post={post} />
+      {post.image1 && (
+        <img src={post.image1} className={styles.image} alt="img" />
       )}
-      {cake.image2 && (
-        <img src={cake.image2} className={styles.image} alt="img" />
+      {post.image2 && (
+        <img src={post.image2} className={styles.image} alt="img" />
       )}
-      {cake.image3 && (
-        <img src={cake.image3} className={styles.image} alt="img" />
+      {post.image3 && (
+        <img src={post.image3} className={styles.image} alt="img" />
       )}
-      {cake.image4 && (
-        <img src={cake.image4} className={styles.image} alt="img" />
+      {post.image4 && (
+        <img src={post.image4} className={styles.image} alt="img" />
       )}
-      {cake.image5 && (
-        <img src={cake.image5} className={styles.image} alt="img" />
+      {post.image5 && (
+        <img src={post.image5} className={styles.image} alt="img" />
       )}
       {store.user && adminEmails.includes(store.user.email) && (
         <>
@@ -267,7 +269,7 @@ export const Cake = ({ match }: CakeProps) => {
               })
             }
           />
-          <button onClick={() => updateCake()}>Mettre à jour le gateau</button>
+          <button onClick={() => updatePost()}>Mettre à jour le gateau</button>
         </>
       )}
     </div>

@@ -23,7 +23,7 @@ import { Apropos } from "../modules/a-propos";
 import { Header } from "../Layout/Header";
 import { MainMenu } from "../Layout/MainMenu";
 import { Admin } from "../modules/admin";
-import { Cake } from "../modules/catalogue/containers/Cake";
+import { Post } from "../modules/blog/containers/Post";
 
 export type RoutesProps = {
   user: any;
@@ -66,8 +66,8 @@ const App = withRouter(
           <hr className={styles.hr} />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path="/catalogue/:id/" component={Cake} />
             <Route path="/catalogue/" component={Catalogue} />
+            <Route path="/blog/:id/" component={Post} />
             <Route path="/blog/" component={Blog} />
             <Route path="/contact/" component={Contact} />
             <Route path="/apropos/" component={Apropos} />

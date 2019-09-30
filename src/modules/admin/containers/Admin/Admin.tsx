@@ -1,15 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StoreContext } from "../../../../context/StoreContext";
-import { Title, CakeCard, adminEmails, randomToken } from "../../../common-ui";
 import firebase from "firebase";
 import slugify from "slugify";
+import { StoreContext } from "../../../../context/StoreContext";
+import { Title, adminEmails, randomToken } from "../../../common-ui";
 
-import styles from "./styles.module.scss";
 import { storageRef } from "../../../../firebaseConfig";
+import { PostCard } from "../../../blog/containers/PostCard";
+import styles from "./styles.module.scss";
 
 export const Admin = () => {
   const store = useContext(StoreContext);
-  const [cakes, setCakes] = useState([] as any);
+  const [posts, setPosts] = useState([] as any);
+  const [articles, setArticles] = useState([] as any);
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -19,14 +21,32 @@ export const Admin = () => {
     image4: null as any,
     image5: null as any
   });
+  const [formArticle, setFormArticle] = useState({
+    name: "",
+    description: "",
+    image: null as any
+  });
 
   const onFetchData = () => {
     firebase
       .firestore()
-      .collection("Cakes")
+      .collection("Blog")
       .get()
       .then((s: any) =>
-        setCakes(
+        setPosts(
+          s.docs.map((d: any) => {
+            return d.data();
+          })
+        )
+      )
+      .catch(r => console.log("R", r));
+
+    firebase
+      .firestore()
+      .collection("Catalog")
+      .get()
+      .then((s: any) =>
+        setArticles(
           s.docs.map((d: any) => {
             return d.data();
           })
@@ -39,7 +59,7 @@ export const Admin = () => {
     onFetchData();
   }, []);
 
-  const addCake = () => {
+  const addPost = () => {
     const image1Token = randomToken();
     const image2Token = randomToken();
     const image3Token = randomToken();
@@ -155,7 +175,7 @@ export const Admin = () => {
       Promise.all(promises).then(() => {
         firebase
           .firestore()
-          .collection("Cakes")
+          .collection("Blog")
           .doc(slugify(form.name).toLowerCase())
           .set({
             id: slugify(form.name).toLowerCase(),
@@ -173,6 +193,52 @@ export const Admin = () => {
     });
   };
 
+  const addArticle = () => {
+    const imageToken = randomToken();
+
+    const pro = [] as any[];
+
+    if (formArticle.image) {
+      const imageRef = storageRef.child(imageToken);
+      pro.push(
+        imageRef.put(formArticle.image).then(() => {
+          console.log("file uploaded");
+        })
+      );
+    }
+
+    const promises = [] as any[];
+    let imageUrl = null as any;
+
+    Promise.all(pro).then(() => {
+      if (formArticle.image) {
+        promises.push(
+          storageRef
+            .child(String(imageToken))
+            .getDownloadURL()
+            .then(url => {
+              imageUrl = url;
+            })
+        );
+      }
+
+      Promise.all(promises).then(() => {
+        firebase
+          .firestore()
+          .collection("Catalog")
+          .doc(slugify(formArticle.name).toLowerCase())
+          .set({
+            id: slugify(formArticle.name).toLowerCase(),
+            name: formArticle.name,
+            description: formArticle.description,
+            image: imageUrl,
+            date: new Date()
+          })
+          .then(() => onFetchData());
+      });
+    });
+  };
+
   return (
     <div>
       <Title>Admin</Title>
@@ -183,80 +249,123 @@ export const Admin = () => {
             ? store.user.displayName
             : store.user.email.split("@")[0])}
       </div>
+      <div>
+        Ici vous pouvez ajouter des posts au blog et des articles au catalogue.
+      </div>
       {store.user && adminEmails.includes(store.user.email) && (
         <>
-          Nom
-          <input
-            type="text"
-            value={form.name}
-            onChange={evt => setForm({ ...form, name: evt.target.value })}
-          />
-          Description
-          <input
-            type="text"
-            value={form.description}
-            onChange={evt =>
-              setForm({ ...form, description: evt.target.value })
-            }
-          />
-          Image 1
-          <input
-            type="file"
-            onChange={evt =>
-              setForm({
-                ...form,
-                image1: evt.target.files ? evt.target.files[0] : null
-              })
-            }
-          />
-          Image 2
-          <input
-            type="file"
-            onChange={evt =>
-              setForm({
-                ...form,
-                image2: evt.target.files ? evt.target.files[0] : null
-              })
-            }
-          />
-          Image 3
-          <input
-            type="file"
-            onChange={evt =>
-              setForm({
-                ...form,
-                image3: evt.target.files ? evt.target.files[0] : null
-              })
-            }
-          />
-          Image 4
-          <input
-            type="file"
-            onChange={evt =>
-              setForm({
-                ...form,
-                image4: evt.target.files ? evt.target.files[0] : null
-              })
-            }
-          />
-          Image 5
-          <input
-            type="file"
-            onChange={evt =>
-              setForm({
-                ...form,
-                image5: evt.target.files ? evt.target.files[0] : null
-              })
-            }
-          />
-          <button onClick={() => addCake()}>Ajouter le gateau</button>
+          <div>BLOG</div>
+
+          <div>
+            Nom
+            <input
+              type="text"
+              value={form.name}
+              onChange={evt => setForm({ ...form, name: evt.target.value })}
+            />
+            Description
+            <input
+              type="text"
+              value={form.description}
+              onChange={evt =>
+                setForm({ ...form, description: evt.target.value })
+              }
+            />
+            Image 1
+            <input
+              type="file"
+              onChange={evt =>
+                setForm({
+                  ...form,
+                  image1: evt.target.files ? evt.target.files[0] : null
+                })
+              }
+            />
+            Image 2
+            <input
+              type="file"
+              onChange={evt =>
+                setForm({
+                  ...form,
+                  image2: evt.target.files ? evt.target.files[0] : null
+                })
+              }
+            />
+            Image 3
+            <input
+              type="file"
+              onChange={evt =>
+                setForm({
+                  ...form,
+                  image3: evt.target.files ? evt.target.files[0] : null
+                })
+              }
+            />
+            Image 4
+            <input
+              type="file"
+              onChange={evt =>
+                setForm({
+                  ...form,
+                  image4: evt.target.files ? evt.target.files[0] : null
+                })
+              }
+            />
+            Image 5
+            <input
+              type="file"
+              onChange={evt =>
+                setForm({
+                  ...form,
+                  image5: evt.target.files ? evt.target.files[0] : null
+                })
+              }
+            />
+            <button onClick={() => addPost()}>Ajouter le post</button>
+          </div>
+
+          {posts &&
+            posts.map((post: any) => <PostCard key={post.image} post={post} />)}
+
+          <div>CATALOGUE</div>
+
+          <div>
+            Nom
+            <input
+              type="text"
+              value={formArticle.name}
+              onChange={evt =>
+                setFormArticle({ ...formArticle, name: evt.target.value })
+              }
+            />
+            Description
+            <input
+              type="text"
+              value={formArticle.description}
+              onChange={evt =>
+                setFormArticle({
+                  ...formArticle,
+                  description: evt.target.value
+                })
+              }
+            />
+            Image 1
+            <input
+              type="file"
+              onChange={evt =>
+                setFormArticle({
+                  ...formArticle,
+                  image: evt.target.files ? evt.target.files[0] : null
+                })
+              }
+            />
+            <button onClick={() => addArticle()}>Ajouter l'article</button>
+          </div>
+
+          {articles &&
+            articles.map((article: any) => <div>{article.name}</div>)}
         </>
       )}
-
-      <div>-----</div>
-
-      {cakes &&
-        cakes.map((cake: any) => <CakeCard key={cake.image} cake={cake} />)}
     </div>
   );
 };

@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
-import { Title, CakeCard } from "../../../common-ui";
+import { Title } from "../../../common-ui";
 
 import styles from "./styles.module.scss";
 
 export const Catalogue = () => {
-  const [cakes, setCakes] = useState([] as any[]);
+  const [articles, setArticles] = useState([] as any[]);
 
   const onFetchData = () => {
     firebase
       .firestore()
-      .collection("Cakes")
+      .collection("Catalog")
       .get()
       .then((s: any) =>
-        setCakes(
+        setArticles(
           s.docs.map((d: any) => {
             return d.data();
           })
@@ -31,8 +31,7 @@ export const Catalogue = () => {
       <Title>Catalogue</Title>
       <div className={styles.blocks}>Bienvenue dans le catalogue</div>
       <div>
-        {cakes &&
-          cakes.map((cake: any) => <CakeCard key={cake.image} cake={cake} />)}
+        {articles && articles.map((article: any) => <div>{article.name}</div>)}
       </div>
     </div>
   );
