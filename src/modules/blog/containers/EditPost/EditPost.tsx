@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import firebase from "firebase";
 import { RouteComponentProps } from "react-router";
-import { NavLink } from "react-router-dom";
 import { Loader, adminEmails, randomToken } from "../../../common-ui";
 import { StoreContext } from "../../../../context/StoreContext";
 import { storageRef } from "../../../../firebaseConfig";
@@ -9,9 +8,9 @@ import { PostCard } from "../PostCard";
 
 import styles from "./styles.module.scss";
 
-export type PostProps = RouteComponentProps<{ id: string }>;
+export type EditPostProps = RouteComponentProps<{ id: string }>;
 
-export const Post = ({ match }: PostProps) => {
+export const EditPost = ({ match }: EditPostProps) => {
   const store = useContext(StoreContext);
 
   const [post, setPost] = useState();
@@ -187,26 +186,70 @@ export const Post = ({ match }: PostProps) => {
 
   return (
     <div>
-      <div>Détail du gateau : {post.name}</div>
-      <PostCard post={post} />
-      {post.image1 && (
-        <img src={post.image1} className={styles.image} alt="img" />
-      )}
-      {post.image2 && (
-        <img src={post.image2} className={styles.image} alt="img" />
-      )}
-      {post.image3 && (
-        <img src={post.image3} className={styles.image} alt="img" />
-      )}
-      {post.image4 && (
-        <img src={post.image4} className={styles.image} alt="img" />
-      )}
-      {post.image5 && (
-        <img src={post.image5} className={styles.image} alt="img" />
-      )}
-      {store.user && adminEmails.includes(store.user.email) && (
-        <NavLink to={`/blog/${match.params.id}/edit/`}>EDIT</NavLink>
-      )}
+      <div>Editer le post : {post.name}</div>
+      Nom
+      <input
+        type="text"
+        value={form.name}
+        onChange={evt => setForm({ ...form, name: evt.target.value })}
+      />
+      Description
+      <input
+        type="text"
+        value={form.description}
+        onChange={evt => setForm({ ...form, description: evt.target.value })}
+      />
+      Image 1
+      <input
+        type="file"
+        onChange={evt =>
+          setForm({
+            ...form,
+            image1: evt.target.files ? evt.target.files[0] : null
+          })
+        }
+      />
+      Image 2
+      <input
+        type="file"
+        onChange={evt =>
+          setForm({
+            ...form,
+            image2: evt.target.files ? evt.target.files[0] : null
+          })
+        }
+      />
+      Image 3
+      <input
+        type="file"
+        onChange={evt =>
+          setForm({
+            ...form,
+            image3: evt.target.files ? evt.target.files[0] : null
+          })
+        }
+      />
+      Image 4
+      <input
+        type="file"
+        onChange={evt =>
+          setForm({
+            ...form,
+            image4: evt.target.files ? evt.target.files[0] : null
+          })
+        }
+      />
+      Image 5
+      <input
+        type="file"
+        onChange={evt =>
+          setForm({
+            ...form,
+            image5: evt.target.files ? evt.target.files[0] : null
+          })
+        }
+      />
+      <button onClick={() => updatePost()}>Mettre à jour le post</button>
     </div>
   );
 };

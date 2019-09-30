@@ -1,0 +1,15 @@
+.articleCard {
+  border: 1px solid gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+  text-decoration: none;
+}
+
+.image {
+  max-width: 100px;
+  max-height: 100px;
+  padding: 10px;
+}

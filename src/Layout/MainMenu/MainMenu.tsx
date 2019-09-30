@@ -23,11 +23,6 @@ export const MainMenu = () => {
       <NavLink to="/apropos/" className={styles.tab}>
         A propos
       </NavLink>
-      {store.user && adminEmails.includes(store.user.email) && (
-        <NavLink to="/admin/" className={styles.tab}>
-          Admin
-        </NavLink>
-      )}
     </div>
   );
 };

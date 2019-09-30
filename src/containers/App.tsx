@@ -22,8 +22,11 @@ import { Contact } from "../modules/contact";
 import { Apropos } from "../modules/a-propos";
 import { Header } from "../Layout/Header";
 import { MainMenu } from "../Layout/MainMenu";
-import { Admin } from "../modules/admin";
 import { Post } from "../modules/blog/containers/Post";
+import { CreatePost } from "../modules/blog/containers/CreatePost";
+import { CreateArticle } from "../modules/catalogue/containers/CreateArticle";
+import { EditPost } from "../modules/blog/containers/EditPost";
+import { EditArticle } from "../modules/catalogue/containers/EditArticle";
 
 export type RoutesProps = {
   user: any;
@@ -66,14 +69,23 @@ const App = withRouter(
           <hr className={styles.hr} />
           <Switch>
             <Route exact path="/" component={HomePage} />
+            {user && adminEmails.includes(user.email) && (
+              <Route path="/catalogue/create/" component={CreateArticle} />
+            )}
+            {user && adminEmails.includes(user.email) && (
+              <Route path="/catalogue/:id/edit/" component={EditArticle} />
+            )}
             <Route path="/catalogue/" component={Catalogue} />
+            {user && adminEmails.includes(user.email) && (
+              <Route path="/blog/create/" component={CreatePost} />
+            )}
+            {user && adminEmails.includes(user.email) && (
+              <Route path="/blog/:id/edit/" component={EditPost} />
+            )}
             <Route path="/blog/:id/" component={Post} />
             <Route path="/blog/" component={Blog} />
             <Route path="/contact/" component={Contact} />
             <Route path="/apropos/" component={Apropos} />
-            {user && adminEmails.includes(user.email) && (
-              <Route path="/admin/" component={Admin} />
-            )}
           </Switch>
         </StoreContext.Provider>
       </Page>
