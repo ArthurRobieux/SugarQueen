@@ -1,0 +1,11 @@
+.articles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.emptyCard {
+  min-width: calc((100% - 30px) / 5);
+  max-width: calc((100% - 30px) / 5);
+  box-sizing: border-box;
+}

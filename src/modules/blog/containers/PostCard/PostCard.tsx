@@ -12,17 +12,19 @@ export const PostCard = ({ post }: PostCardProps) => {
   const store = useContext(StoreContext);
 
   return (
-    <NavLink to={`/blog/${post.id}/`} className={styles.postCard}>
-      <div className={styles.name}>
-        {post.name}
-        {store.user && adminEmails.includes(store.user.email) && (
-          <Button to={`/blog/${post.id}/edit/`} description="Editer" />
+    <div className={styles.postCardContainer}>
+      <NavLink to={`/blog/${post.id}/`} className={styles.postCard}>
+        <div className={styles.name}>
+          {post.name}
+          {store.user && adminEmails.includes(store.user.email) && (
+            <Button to={`/blog/${post.id}/edit/`} description="Editer" />
+          )}
+        </div>
+        <div className={styles.description}>{post.description}</div>
+        {post.image1 && (
+          <img src={post.image1} className={styles.image} alt="img" />
         )}
-      </div>
-      <div className={styles.description}>{post.description}</div>
-      {post.image1 && (
-        <img src={post.image1} className={styles.image} alt="img" />
-      )}
-    </NavLink>
+      </NavLink>
+    </div>
   );
 };

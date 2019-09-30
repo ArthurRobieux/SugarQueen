@@ -1,15 +1,42 @@
+.articleCardContainer {
+  min-width: calc((100% - 30px) / 3);
+  max-width: calc((100% - 30px) / 3);
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
 .articleCard {
-  border: 1px solid gray;
+  border-radius: 4px;
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  text-decoration: none;
+  text-align: center;
+  height: 250px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  margin: 10px 0;
-  text-decoration: none;
+  transition-duration: 0.3s;
+  &:hover {
+    transform: scale(0.95);
+  }
 }
 
 .image {
   max-width: 100px;
   max-height: 100px;
-  padding: 10px;
+  margin: auto;
+  display: block;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.description {
+  color: gray;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
 }
