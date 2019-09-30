@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import firebase from "firebase";
-import { NavLink } from "react-router-dom";
-import { Title, adminEmails } from "../../../common-ui";
+import { Title, adminEmails, Button } from "../../../common-ui";
 import { PostCard } from "../PostCard";
 import { StoreContext } from "../../../../context/StoreContext";
 
@@ -32,11 +31,12 @@ export const Blog = () => {
 
   return (
     <div>
-      <Title>Blog</Title>
-      <div className={styles.blocks}>Bienvenue dans le blog</div>
+      <Title>Bienvenue dans le blog</Title>
+
       {store.user && adminEmails.includes(store.user.email) && (
-        <NavLink to="/blog/create/">ADD POST</NavLink>
+        <Button to="/blog/create/" description="Ajouter un post" />
       )}
+
       <div>
         {posts &&
           posts.map((post: any) => <PostCard key={post.image} post={post} />)}

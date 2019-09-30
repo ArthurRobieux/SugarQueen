@@ -7,7 +7,8 @@ import {
   TextInput,
   FileInput,
   Button,
-  FormLoader
+  FormLoader,
+  TextareaInput
 } from "../../../common-ui";
 
 import { storageRef } from "../../../../firebaseConfig";
@@ -167,10 +168,8 @@ export const CreatePost = () => {
 
   return (
     <div>
-      {redirect && <Redirect to="/blog" />}
-      <Title>Admin</Title>
-
-      <div>Ajout d'un post au blog</div>
+      {redirect && <Redirect to="/blog/" />}
+      <Title>Ajout d'un post au blog</Title>
 
       <div>
         <TextInput
@@ -178,7 +177,7 @@ export const CreatePost = () => {
           onChange={evt => setForm({ ...form, name: evt.target.value })}
           description="Nom"
         />
-        <TextInput
+        <TextareaInput
           value={form.description}
           onChange={evt => setForm({ ...form, description: evt.target.value })}
           description="Description"

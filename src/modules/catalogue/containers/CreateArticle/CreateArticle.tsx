@@ -1,49 +1,39 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router";
 import firebase from "firebase";
 import slugify from "slugify";
-import { StoreContext } from "../../../../context/StoreContext";
-import { Title, adminEmails, randomToken } from "../../../common-ui";
+import {
+  Title,
+  randomToken,
+  TextInput,
+  FileInput,
+  FormLoader,
+  Button,
+  TextareaInput
+} from "../../../common-ui";
 
 import { storageRef } from "../../../../firebaseConfig";
 
 export const CreateArticle = () => {
-  const store = useContext(StoreContext);
-  const [articles, setArticles] = useState([] as any);
+  const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
-  const [formArticle, setFormArticle] = useState({
+  const [form, setForm] = useState({
     name: "",
     description: "",
     image: null as any
   });
 
-  const onFetchData = () => {
-    firebase
-      .firestore()
-      .collection("Catalog")
-      .get()
-      .then((s: any) =>
-        setArticles(
-          s.docs.map((d: any) => {
-            return d.data();
-          })
-        )
-      )
-      .catch(r => console.log("R", r));
-  };
-
-  useEffect(() => {
-    onFetchData();
-  }, []);
-
   const addArticle = () => {
+    setLoading(true);
     const imageToken = randomToken();
 
     const pro = [] as any[];
 
-    if (formArticle.image) {
+    if (form.image) {
       const imageRef = storageRef.child(imageToken);
       pro.push(
-        imageRef.put(formArticle.image).then(() => {
+        imageRef.put(form.image).then(() => {
           console.log("file uploaded");
         })
       );
@@ -53,7 +43,7 @@ export const CreateArticle = () => {
     let imageUrl = null as any;
 
     Promise.all(pro).then(() => {
-      if (formArticle.image) {
+      if (form.image) {
         promises.push(
           storageRef
             .child(String(imageToken))
@@ -68,71 +58,53 @@ export const CreateArticle = () => {
         firebase
           .firestore()
           .collection("Catalog")
-          .doc(slugify(formArticle.name).toLowerCase())
+          .doc(slugify(form.name).toLowerCase())
           .set({
-            id: slugify(formArticle.name).toLowerCase(),
-            name: formArticle.name,
-            description: formArticle.description,
+            id: slugify(form.name).toLowerCase(),
+            name: form.name,
+            description: form.description,
             image: imageUrl,
             date: new Date()
           })
-          .then(() => onFetchData());
+          .then(() => {
+            setLoading(false);
+            setRedirect(true);
+          });
       });
     });
   };
 
   return (
     <div>
-      <Title>Admin</Title>
+      {redirect && <Redirect to="/catalogue/" />}
+      <Title>Ajout d'un article au catalogue</Title>
       <div>
-        Bienvenue dans l'Admin{" "}
-        {store.user &&
-          (store.user.displayName
-            ? store.user.displayName
-            : store.user.email.split("@")[0])}
+        <TextInput
+          value={form.name}
+          onChange={evt => setForm({ ...form, name: evt.target.value })}
+          description="Nom"
+        />
+        <TextareaInput
+          value={form.description}
+          onChange={evt => setForm({ ...form, description: evt.target.value })}
+          description="Description"
+        />
+        <FileInput
+          onChange={evt =>
+            setForm({
+              ...form,
+              image: evt.target.files ? evt.target.files[0] : null
+            })
+          }
+          description="Image 1"
+          value={form.image}
+        />
+        {loading ? (
+          <FormLoader />
+        ) : (
+          <Button description="Ajouter" onClick={() => addArticle()} />
+        )}
       </div>
-      <div>Ici vous pouvez ajouter des articles au catalogue.</div>
-      {store.user && adminEmails.includes(store.user.email) && (
-        <>
-          <div>CATALOGUE</div>
-
-          <div>
-            Nom
-            <input
-              type="text"
-              value={formArticle.name}
-              onChange={evt =>
-                setFormArticle({ ...formArticle, name: evt.target.value })
-              }
-            />
-            Description
-            <input
-              type="text"
-              value={formArticle.description}
-              onChange={evt =>
-                setFormArticle({
-                  ...formArticle,
-                  description: evt.target.value
-                })
-              }
-            />
-            Image 1
-            <input
-              type="file"
-              onChange={evt =>
-                setFormArticle({
-                  ...formArticle,
-                  image: evt.target.files ? evt.target.files[0] : null
-                })
-              }
-            />
-            <button onClick={() => addArticle()}>Ajouter l'article</button>
-          </div>
-
-          {articles &&
-            articles.map((article: any) => <div>{article.name}</div>)}
-        </>
-      )}
     </div>
   );
 };

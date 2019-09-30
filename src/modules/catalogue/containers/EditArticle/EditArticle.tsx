@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
 import firebase from "firebase";
-import { RouteComponentProps } from "react-router";
-import { Loader, randomToken } from "../../../common-ui";
+import { RouteComponentProps, Redirect } from "react-router";
+import {
+  Loader,
+  randomToken,
+  Button,
+  FormLoader,
+  FileInput,
+  TextareaInput,
+  TextInput,
+  Title
+} from "../../../common-ui";
 import { storageRef } from "../../../../firebaseConfig";
 
 export type EditArticleProps = RouteComponentProps<{ id: string }>;
 
 export const EditArticle = ({ match }: EditArticleProps) => {
+  const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [article, setArticle] = useState();
 
   const onFetchData = () => {
@@ -75,7 +86,11 @@ export const EditArticle = ({ match }: EditArticleProps) => {
             description: form.description,
             image: imageUrl || article.image
           })
-          .then(() => onFetchData());
+          .then(() => {
+            setLoading(false);
+            setRedirect(true);
+            onFetchData();
+          });
       });
     });
   };
@@ -84,30 +99,33 @@ export const EditArticle = ({ match }: EditArticleProps) => {
 
   return (
     <div>
-      <div>Editer l'article : {article.name}</div>
-      Nom
-      <input
-        type="text"
+      {redirect && <Redirect to="/catalogue/" />}
+      <Title>Editer l'article : {article.name}</Title>
+      <TextInput
         value={form.name}
         onChange={evt => setForm({ ...form, name: evt.target.value })}
+        description="Nom"
       />
-      Description
-      <input
-        type="text"
+      <TextareaInput
         value={form.description}
         onChange={evt => setForm({ ...form, description: evt.target.value })}
+        description="Description"
       />
-      Image 1
-      <input
-        type="file"
+      <FileInput
         onChange={evt =>
           setForm({
             ...form,
             image: evt.target.files ? evt.target.files[0] : null
           })
         }
+        description="Image 1"
+        value={form.image}
       />
-      <button onClick={() => updateArticle()}>Mettre à jour l'article</button>
+      {loading ? (
+        <FormLoader />
+      ) : (
+        <Button description="Mettre à jour" onClick={() => updateArticle()} />
+      )}
     </div>
   );
 };

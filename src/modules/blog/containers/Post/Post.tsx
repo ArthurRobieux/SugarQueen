@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import firebase from "firebase";
 import { RouteComponentProps } from "react-router";
 import { NavLink } from "react-router-dom";
-import { Loader, adminEmails } from "../../../common-ui";
+import { Loader, adminEmails, Button } from "../../../common-ui";
 import { StoreContext } from "../../../../context/StoreContext";
 import { PostCard } from "../PostCard";
 
@@ -35,14 +35,22 @@ export const Post = ({ match }: PostProps) => {
 
   return (
     <div>
-      <div>Détail du gateau : {post.name}</div>
-      <PostCard post={post} />
+      <div className={styles.name}>
+        <>{post.name}</>
+        {store.user && adminEmails.includes(store.user.email) && (
+          <Button description="Editer" to={`/blog/${match.params.id}/edit/`} />
+        )}
+      </div>
+
       {post.image1 && (
         <img src={post.image1} className={styles.image} alt="img" />
       )}
       {post.image2 && (
         <img src={post.image2} className={styles.image} alt="img" />
       )}
+
+      <div className={styles.description}>{post.description}</div>
+
       {post.image3 && (
         <img src={post.image3} className={styles.image} alt="img" />
       )}
@@ -51,9 +59,6 @@ export const Post = ({ match }: PostProps) => {
       )}
       {post.image5 && (
         <img src={post.image5} className={styles.image} alt="img" />
-      )}
-      {store.user && adminEmails.includes(store.user.email) && (
-        <NavLink to={`/blog/${match.params.id}/edit/`}>EDIT</NavLink>
       )}
     </div>
   );

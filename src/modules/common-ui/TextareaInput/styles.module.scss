@@ -1,0 +1,23 @@
+.textareaInputContainer {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.description {
+  color: gray;
+}
+
+.textareaInput {
+  height: 44px;
+  border-radius: 4px;
+  border: 1px solid gray;
+  padding: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+  width: 75%;
+  height: 200px;
+  &:focus {
+    outline: none;
+    border: 1px solid black;
+  }
+}

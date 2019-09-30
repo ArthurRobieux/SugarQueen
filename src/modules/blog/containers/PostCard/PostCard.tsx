@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styles from "./styles.module.scss";
 import { NavLink } from "react-router-dom";
 import { StoreContext } from "../../../../context/StoreContext";
-import { adminEmails } from "../../../common-ui";
+import { adminEmails, Button } from "../../../common-ui";
 
 export type PostCardProps = {
   post: any;
@@ -16,7 +16,7 @@ export const PostCard = ({ post }: PostCardProps) => {
       <div className={styles.name}>
         {post.name}
         {store.user && adminEmails.includes(store.user.email) && (
-          <NavLink to={`/blog/${post.id}/edit/`}>EDIT</NavLink>
+          <Button to={`/blog/${post.id}/edit/`} description="Editer" />
         )}
       </div>
       <div className={styles.description}>{post.description}</div>

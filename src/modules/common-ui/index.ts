@@ -4,6 +4,7 @@ export { Page } from "./Page";
 export { Loader } from "./Loader";
 export { FormLoader } from "./FormLoader";
 export { TextInput } from "./TextInput";
+export { TextareaInput } from "./TextareaInput";
 export { Button } from "./Button";
 export { FileInput } from "./FileInput";
 export * from "./constants";

@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import firebase from "firebase";
-import { NavLink } from "react-router-dom";
-import { Title, adminEmails } from "../../../common-ui";
+import { Title, adminEmails, Button } from "../../../common-ui";
 import { ArticleCard } from "../ArticleCard";
 import { StoreContext } from "../../../../context/StoreContext";
-
-import styles from "./styles.module.scss";
 
 export const Catalogue = () => {
   const store = useContext(StoreContext);
@@ -32,10 +29,9 @@ export const Catalogue = () => {
 
   return (
     <div>
-      <Title>Catalogue</Title>
-      <div className={styles.blocks}>Bienvenue dans le catalogue</div>
+      <Title>Bienvenue dans le catalogue</Title>
       {store.user && adminEmails.includes(store.user.email) && (
-        <NavLink to="/catalogue/create/">ADD ARTICLE</NavLink>
+        <Button to="/catalogue/create/" description="Ajouter" />
       )}
       <div>
         {articles &&

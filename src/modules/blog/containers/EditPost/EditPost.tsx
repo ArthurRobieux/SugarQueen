@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import firebase from "firebase";
-import { RouteComponentProps } from "react-router";
-import { Loader, randomToken } from "../../../common-ui";
+import { RouteComponentProps, Redirect } from "react-router";
+import {
+  Loader,
+  randomToken,
+  TextInput,
+  FileInput,
+  FormLoader,
+  Button,
+  Title,
+  TextareaInput
+} from "../../../common-ui";
 import { storageRef } from "../../../../firebaseConfig";
 
 // import styles from "./styles.module.scss";
@@ -10,6 +19,8 @@ export type EditPostProps = RouteComponentProps<{ id: string }>;
 
 export const EditPost = ({ match }: EditPostProps) => {
   const [post, setPost] = useState();
+  const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   const onFetchData = () => {
     firebase
@@ -47,6 +58,8 @@ export const EditPost = ({ match }: EditPostProps) => {
   });
 
   const updatePost = () => {
+    setLoading(true);
+
     const image1Token = randomToken();
     const image2Token = randomToken();
     const image3Token = randomToken();
@@ -173,7 +186,11 @@ export const EditPost = ({ match }: EditPostProps) => {
             image4: url4 || post.image4,
             image5: url5 || post.image5
           })
-          .then(() => onFetchData());
+          .then(() => {
+            setLoading(false);
+            setRedirect(true);
+            onFetchData();
+          });
       });
     });
   };
@@ -182,70 +199,75 @@ export const EditPost = ({ match }: EditPostProps) => {
 
   return (
     <div>
-      <div>Editer le post : {post.name}</div>
-      Nom
-      <input
-        type="text"
+      {redirect && <Redirect to="/blog/" />}
+
+      <Title>Editer le post : {post.name}</Title>
+      <TextInput
         value={form.name}
         onChange={evt => setForm({ ...form, name: evt.target.value })}
+        description="Nom"
       />
-      Description
-      <input
-        type="text"
+      <TextareaInput
         value={form.description}
         onChange={evt => setForm({ ...form, description: evt.target.value })}
+        description="Description"
       />
-      Image 1
-      <input
-        type="file"
+      <FileInput
         onChange={evt =>
           setForm({
             ...form,
             image1: evt.target.files ? evt.target.files[0] : null
           })
         }
+        description="Image 1"
+        value={form.image1}
       />
-      Image 2
-      <input
-        type="file"
+      <FileInput
         onChange={evt =>
           setForm({
             ...form,
             image2: evt.target.files ? evt.target.files[0] : null
           })
         }
+        description="Image 2"
+        value={form.image2}
       />
-      Image 3
-      <input
-        type="file"
+      <FileInput
         onChange={evt =>
           setForm({
             ...form,
             image3: evt.target.files ? evt.target.files[0] : null
           })
         }
+        description="Image 3"
+        value={form.image3}
       />
-      Image 4
-      <input
-        type="file"
+      <FileInput
         onChange={evt =>
           setForm({
             ...form,
             image4: evt.target.files ? evt.target.files[0] : null
           })
         }
+        description="Image 4"
+        value={form.image4}
       />
-      Image 5
-      <input
-        type="file"
+      <FileInput
         onChange={evt =>
           setForm({
             ...form,
             image5: evt.target.files ? evt.target.files[0] : null
           })
         }
+        description="Image 5"
+        value={form.image5}
       />
-      <button onClick={() => updatePost()}>Mettre à jour le post</button>
+
+      {loading ? (
+        <FormLoader />
+      ) : (
+        <Button description="Mettre à jour" onClick={() => updatePost()} />
+      )}
     </div>
   );
 };
