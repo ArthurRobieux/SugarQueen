@@ -1,5 +1,4 @@
 import { Dispatch } from "react";
-import { firebaseApp } from "../firebaseConfig";
 
 export const simpleActions = {
   receiveUser: (payload: any) => ({
@@ -13,6 +12,5 @@ export type Action = ReturnType<
 >;
 
 export const receiveUser = (dispatch: Dispatch<Action>, user: any) => {
-  console.log("LAla", user);
   dispatch(simpleActions.receiveUser(user));
 };

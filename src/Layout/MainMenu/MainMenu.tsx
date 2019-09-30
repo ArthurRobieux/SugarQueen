@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./styles.module.scss";
-import { adminEmails } from "../../modules/common-ui";
-import { StoreContext } from "../../context/StoreContext";
 
 export const MainMenu = () => {
-  const store = useContext(StoreContext);
   return (
     <div className={styles.mainMenu}>
       <NavLink to="/" className={styles.tab}>

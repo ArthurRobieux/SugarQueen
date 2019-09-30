@@ -15,7 +15,7 @@ export const ArticleCard = ({ article }: ArticleCardProps) => {
 
   return (
     <div className={styles.articleCard}>
-      <img src={article.image} className={styles.image} />
+      <img src={article.image} className={styles.image} alt="img" />
       {article.name} - {article.description}
       {store.user && adminEmails.includes(store.user.email) && (
         <NavLink to={`/catalogue/${article.id}/edit/`}>EDIT</NavLink>

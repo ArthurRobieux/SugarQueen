@@ -1,18 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import firebase from "firebase";
 import { RouteComponentProps } from "react-router";
-import { Loader, adminEmails, randomToken } from "../../../common-ui";
-import { StoreContext } from "../../../../context/StoreContext";
+import { Loader, randomToken } from "../../../common-ui";
 import { storageRef } from "../../../../firebaseConfig";
-import { PostCard } from "../PostCard";
 
-import styles from "./styles.module.scss";
+// import styles from "./styles.module.scss";
 
 export type EditPostProps = RouteComponentProps<{ id: string }>;
 
 export const EditPost = ({ match }: EditPostProps) => {
-  const store = useContext(StoreContext);
-
   const [post, setPost] = useState();
 
   const onFetchData = () => {
