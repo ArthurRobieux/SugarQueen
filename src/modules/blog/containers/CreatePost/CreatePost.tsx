@@ -1,14 +1,19 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 import firebase from "firebase";
 import slugify from "slugify";
-import { StoreContext } from "../../../../context/StoreContext";
-import { Title, adminEmails, randomToken } from "../../../common-ui";
+import {
+  Title,
+  randomToken,
+  TextInput,
+  FileInput,
+  Button,
+  FormLoader
+} from "../../../common-ui";
 
 import { storageRef } from "../../../../firebaseConfig";
+import { Redirect } from "react-router";
 
 export const CreatePost = () => {
-  const store = useContext(StoreContext);
-  const [posts, setPosts] = useState([] as any);
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -19,26 +24,11 @@ export const CreatePost = () => {
     image5: null as any
   });
 
-  const onFetchData = () => {
-    firebase
-      .firestore()
-      .collection("Blog")
-      .get()
-      .then((s: any) =>
-        setPosts(
-          s.docs.map((d: any) => {
-            return d.data();
-          })
-        )
-      )
-      .catch(r => console.log("R", r));
-  };
-
-  useEffect(() => {
-    onFetchData();
-  }, []);
+  const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const addPost = () => {
+    setLoading(true);
     const image1Token = randomToken();
     const image2Token = randomToken();
     const image3Token = randomToken();
@@ -167,97 +157,89 @@ export const CreatePost = () => {
             image5: url5,
             date: new Date()
           })
-          .then(() => onFetchData());
+          .then(() => {
+            setLoading(false);
+            setRedirect(true);
+          });
       });
     });
   };
 
   return (
     <div>
+      {redirect && <Redirect to="/blog" />}
       <Title>Admin</Title>
+
+      <div>Ajout d'un post au blog</div>
+
       <div>
-        Bienvenue dans l'Admin{" "}
-        {store.user &&
-          (store.user.displayName
-            ? store.user.displayName
-            : store.user.email.split("@")[0])}
+        <TextInput
+          value={form.name}
+          onChange={evt => setForm({ ...form, name: evt.target.value })}
+          description="Nom"
+        />
+        <TextInput
+          value={form.description}
+          onChange={evt => setForm({ ...form, description: evt.target.value })}
+          description="Description"
+        />
+        <FileInput
+          onChange={evt =>
+            setForm({
+              ...form,
+              image1: evt.target.files ? evt.target.files[0] : null
+            })
+          }
+          description="Image 1"
+          value={form.image1}
+        />
+        <FileInput
+          onChange={evt =>
+            setForm({
+              ...form,
+              image2: evt.target.files ? evt.target.files[0] : null
+            })
+          }
+          description="Image 2"
+          value={form.image2}
+        />
+        <FileInput
+          onChange={evt =>
+            setForm({
+              ...form,
+              image3: evt.target.files ? evt.target.files[0] : null
+            })
+          }
+          description="Image 3"
+          value={form.image3}
+        />
+        <FileInput
+          onChange={evt =>
+            setForm({
+              ...form,
+              image4: evt.target.files ? evt.target.files[0] : null
+            })
+          }
+          description="Image 4"
+          value={form.image4}
+        />
+        <FileInput
+          onChange={evt =>
+            setForm({
+              ...form,
+              image5: evt.target.files ? evt.target.files[0] : null
+            })
+          }
+          description="Image 5"
+          value={form.image5}
+        />
+
+        {loading ? (
+          <FormLoader />
+        ) : (
+          <Button description="Ajouter" onClick={() => addPost()} />
+        )}
       </div>
-      <div>Ici vous pouvez ajouter des posts au blog.</div>
-      {store.user && adminEmails.includes(store.user.email) && (
-        <>
-          <div>BLOG</div>
-
-          <div>
-            Nom
-            <input
-              type="text"
-              value={form.name}
-              onChange={evt => setForm({ ...form, name: evt.target.value })}
-            />
-            Description
-            <input
-              type="text"
-              value={form.description}
-              onChange={evt =>
-                setForm({ ...form, description: evt.target.value })
-              }
-            />
-            Image 1
-            <input
-              type="file"
-              onChange={evt =>
-                setForm({
-                  ...form,
-                  image1: evt.target.files ? evt.target.files[0] : null
-                })
-              }
-            />
-            Image 2
-            <input
-              type="file"
-              onChange={evt =>
-                setForm({
-                  ...form,
-                  image2: evt.target.files ? evt.target.files[0] : null
-                })
-              }
-            />
-            Image 3
-            <input
-              type="file"
-              onChange={evt =>
-                setForm({
-                  ...form,
-                  image3: evt.target.files ? evt.target.files[0] : null
-                })
-              }
-            />
-            Image 4
-            <input
-              type="file"
-              onChange={evt =>
-                setForm({
-                  ...form,
-                  image4: evt.target.files ? evt.target.files[0] : null
-                })
-              }
-            />
-            Image 5
-            <input
-              type="file"
-              onChange={evt =>
-                setForm({
-                  ...form,
-                  image5: evt.target.files ? evt.target.files[0] : null
-                })
-              }
-            />
-            <button onClick={() => addPost()}>Ajouter le post</button>
-          </div>
-
-          {posts && posts.map((post: any) => <div>{post.name}</div>)}
-        </>
-      )}
     </div>
   );
 };

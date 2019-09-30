@@ -1,0 +1,17 @@
+.button {
+  height: 44px;
+  border-radius: 4px;
+  background: gray;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-width: 100px;
+  max-width: 150px;
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+}
