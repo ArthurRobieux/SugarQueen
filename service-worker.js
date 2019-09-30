@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/SugarQueen/precache-manifest.472296ac9b9e4a72680e458353b36b00.js"
+  "/SugarQueen/precache-manifest.279d8994698409cae9041055a76d54b6.js"
 );
 
 self.addEventListener('message', (event) => {

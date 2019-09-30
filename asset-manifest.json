@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/SugarQueen/static/css/main.f599ebdf.chunk.css",
-    "main.js": "/SugarQueen/static/js/main.e6e97321.chunk.js",
-    "main.js.map": "/SugarQueen/static/js/main.e6e97321.chunk.js.map",
+    "main.css": "/SugarQueen/static/css/main.4dddf305.chunk.css",
+    "main.js": "/SugarQueen/static/js/main.1c34ef46.chunk.js",
+    "main.js.map": "/SugarQueen/static/js/main.1c34ef46.chunk.js.map",
     "runtime~main.js": "/SugarQueen/static/js/runtime~main.867f65e0.js",
     "runtime~main.js.map": "/SugarQueen/static/js/runtime~main.867f65e0.js.map",
-    "static/js/2.61d26e10.chunk.js": "/SugarQueen/static/js/2.61d26e10.chunk.js",
-    "static/js/2.61d26e10.chunk.js.map": "/SugarQueen/static/js/2.61d26e10.chunk.js.map",
+    "static/js/2.ae06503e.chunk.js": "/SugarQueen/static/js/2.ae06503e.chunk.js",
+    "static/js/2.ae06503e.chunk.js.map": "/SugarQueen/static/js/2.ae06503e.chunk.js.map",
     "index.html": "/SugarQueen/index.html",
-    "precache-manifest.472296ac9b9e4a72680e458353b36b00.js": "/SugarQueen/precache-manifest.472296ac9b9e4a72680e458353b36b00.js",
+    "precache-manifest.279d8994698409cae9041055a76d54b6.js": "/SugarQueen/precache-manifest.279d8994698409cae9041055a76d54b6.js",
     "service-worker.js": "/SugarQueen/service-worker.js",
-    "static/css/main.f599ebdf.chunk.css.map": "/SugarQueen/static/css/main.f599ebdf.chunk.css.map"
+    "static/css/main.4dddf305.chunk.css.map": "/SugarQueen/static/css/main.4dddf305.chunk.css.map"
   }
 }
