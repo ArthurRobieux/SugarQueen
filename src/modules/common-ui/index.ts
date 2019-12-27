@@ -7,4 +7,5 @@ export { TextInput } from "./TextInput";
 export { TextareaInput } from "./TextareaInput";
 export { Button } from "./Button";
 export { FileInput } from "./FileInput";
+export { Modal } from "./Modal";
 export * from "./constants";

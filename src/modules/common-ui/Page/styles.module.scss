@@ -4,4 +4,9 @@
   margin: auto;
   background: white;
   font-size: 18px;
+  @media only screen and (max-width: 800px) {
+    & {
+      width: 95%;
+    }
+  }
 }

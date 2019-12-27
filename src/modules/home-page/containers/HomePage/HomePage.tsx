@@ -3,6 +3,14 @@ import firebase from "firebase";
 import { Title } from "../../../common-ui";
 import { PostCard } from "../../../blog/containers/PostCard";
 
+const customSorting = () => {
+  return function(a: any, b: any) {
+    if (a.date.seconds < b.date.seconds) return 1;
+    if (b.date.seconds < a.date.seconds) return -1;
+    return 0;
+  };
+};
+
 export const HomePage = () => {
   const [posts, setPosts] = useState([] as any[]);
 
@@ -11,13 +19,12 @@ export const HomePage = () => {
       .firestore()
       .collection("Blog")
       .get()
-      .then((s: any) =>
-        setPosts(
-          s.docs.map((d: any) => {
-            return d.data();
-          })
-        )
-      )
+      .then((s: any) => {
+        const p = s.docs.map((d: any) => {
+          return d.data();
+        });
+        setPosts(p.sort(customSorting()).slice(0, 5));
+      })
       .catch(r => console.log("R", r));
   };
 

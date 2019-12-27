@@ -1,6 +1,35 @@
 .mainMenu {
   display: flex;
   justify-content: center;
+  @media only screen and (max-width: 800px) {
+    & {
+      display: none;
+    }
+  }
+}
+
+.mainMenuResponsive {
+  display: none;
+  justify-content: center;
+  @media only screen and (max-width: 800px) {
+    & {
+      display: flex;
+    }
+  }
+}
+
+.burger {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.tabsResponsive {
+  display: flex;
+  flex-direction: column;
 }
 
 .tab {
@@ -9,4 +38,9 @@
   cursor: pointer;
   text-decoration: none;
   color: black;
+  @media only screen and (max-width: 800px) {
+    & {
+      margin: 10px 0;
+    }
+  }
 }

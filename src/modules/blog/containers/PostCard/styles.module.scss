@@ -13,6 +13,7 @@
   margin: 10px 0;
   text-decoration: none;
   transition-duration: 0.3s;
+  overflow: hidden;
   &:hover {
     cursor: pointer;
     transform: scale(0.95);
@@ -23,6 +24,12 @@
   font-size: 18px;
   padding: 10px;
   color: black;
+}
+
+.date {
+  font-size: 14px;
+  padding: 0 10px;
+  color: gray;
 }
 
 .description {

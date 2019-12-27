@@ -1,0 +1,39 @@
+.modal {
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 20px;
+}
+
+.hiddenBox {
+  width: 44px;
+  visibility: hidden;
+}
+
+.title {
+  color: black;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.modalContent {
+  text-align: center;
+  font-size: 16px;
+}
+
+.closeButton {
+  text-align: right;
+}
+
+.fullSizeCloseButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}

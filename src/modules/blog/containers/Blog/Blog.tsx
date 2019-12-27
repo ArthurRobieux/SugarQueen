@@ -4,7 +4,15 @@ import { Title, adminEmails, Button } from "../../../common-ui";
 import { PostCard } from "../PostCard";
 import { StoreContext } from "../../../../context/StoreContext";
 
-import styles from "./styles.module.scss";
+// import styles from "./styles.module.scss";
+
+const customSorting = () => {
+  return function(a: any, b: any) {
+    if (a.date.seconds < b.date.seconds) return 1;
+    if (b.date.seconds < a.date.seconds) return -1;
+    return 0;
+  };
+};
 
 export const Blog = () => {
   const store = useContext(StoreContext);
@@ -15,13 +23,12 @@ export const Blog = () => {
       .firestore()
       .collection("Blog")
       .get()
-      .then((s: any) =>
-        setPosts(
-          s.docs.map((d: any) => {
-            return d.data();
-          })
-        )
-      )
+      .then((s: any) => {
+        const p = s.docs.map((d: any) => {
+          return d.data();
+        });
+        setPosts(p.sort(customSorting()));
+      })
       .catch(r => console.log("R", r));
   };
 
