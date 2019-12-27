@@ -12,7 +12,9 @@ export const SocialNetworkButton = ({
     return (
       <img
         src={require("../../../assets/img/FacebookButton.png")}
-        onClick={() => window.open("google.com", "_blank")}
+        onClick={() =>
+          window.open("https://www.facebook.com/sugarqueen.pr0/", "_blank")
+        }
         className={styles.socialNetworkButton}
         alt="socialNetwork"
       />
@@ -22,7 +24,9 @@ export const SocialNetworkButton = ({
     return (
       <img
         src={require("../../../assets/img/InstagramButton.png")}
-        onClick={() => window.open("google.com", "_blank")}
+        onClick={() =>
+          window.open("https://www.instagram.com/sugarqueen.pro/", "_blank")
+        }
         className={styles.socialNetworkButton}
         alt="socialNetwork"
       />

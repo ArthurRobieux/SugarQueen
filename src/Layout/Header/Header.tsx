@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { SocialNetworkButton } from "../../modules/common-ui/SocialNetworkButton";
+import { Button } from "../../modules/common-ui";
 
 export type HeaderProps = {
   user: any;
@@ -20,17 +21,23 @@ export const Header = ({
     <div className={styles.header}>
       {user && (
         <p>
-          Bonjour,{" "}
-          {user.displayName ? user.displayName : user.email.split("@")[0]}
-          <button onClick={signOut}>Se déconnecter</button>
+          <div className={styles.button}>
+            <div className={styles.userName}>
+              Bonjour,{" "}
+              {user.displayName ? user.displayName : user.email.split("@")[0]}
+            </div>
+            <Button onClick={signOut} description="Se déconnecter" />
+          </div>
         </p>
       )}
 
       {!user && (
         <>
-          <p>Se connecter</p>
+          <div className={styles.button}>
+            <Button onClick={signInWithGoogle} description="Se connecter" />
+          </div>
 
-          <button
+          {/* <button
             onClick={() =>
               signInWithEmailAndPassword(
                 "arthur.robieux2@gmail.com",
@@ -39,11 +46,9 @@ export const Header = ({
             }
           >
             Se connecter
-          </button>
+          </button> */}
 
-          <button onClick={signInWithGoogle}>Se connecter avec Google</button>
-
-          <button
+          {/* <button
             onClick={() =>
               createUserWithEmailAndPassword(
                 "arthur.robieux2@gmail.com",
@@ -52,7 +57,7 @@ export const Header = ({
             }
           >
             Créer un compte
-          </button>
+          </button> */}
         </>
       )}
       <div className={styles.socialNetworks}>
