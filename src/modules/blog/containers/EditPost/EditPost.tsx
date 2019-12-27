@@ -200,7 +200,6 @@ export const EditPost = ({ match }: EditPostProps) => {
   return (
     <div>
       {redirect && <Redirect to="/blog/" />}
-
       <Title>Editer le post : {post.name}</Title>
       <TextInput
         value={form.name}

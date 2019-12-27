@@ -37,6 +37,25 @@ export const Catalogue = () => {
       {store.user && adminEmails.includes(store.user.email) && (
         <Button to="/catalogue/create/" description="Ajouter un article" />
       )}
+      <div className={styles.content}>
+        <div>
+          Dans ce catalogue vous pourrez trouver quelques idées de pâtisseries
+          que je réalise pour des commandes. Bien entendu, je réalise aussi des
+          commandes sur mesure.
+        </div>
+        <div>
+          ​Le prix noté est indicatif, en effet il peut varier en fonction de
+          plusieurs choses (décoration sur mesure, changement du nombre de
+          parts, etc..)
+        </div>
+        <div> Les cupcakes sont vendus par 6, 12, 18, 24, etc..</div>
+        <div>
+          Il n'y a pas de minimum de commande, cependant il est préférable de
+          commander au moins 4 jours à l'avance pour un gâteau classique et au
+          moins une semaine à l'avance pour un gâteau en pâte à sucre. Pour
+          commander, contactez moi via Contact.
+        </div>
+      </div>
       <div className={styles.articles}>
         {articles &&
           articles.map((article: any) => <ArticleCard article={article} />)}

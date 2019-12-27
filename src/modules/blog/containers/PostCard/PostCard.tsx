@@ -20,7 +20,12 @@ export const PostCard = ({ post }: PostCardProps) => {
             <Button to={`/blog/${post.id}/edit/`} description="Editer" />
           )}
         </div>
-        <div className={styles.description}>{post.description}</div>
+        <div
+          className={styles.description}
+          dangerouslySetInnerHTML={{
+            __html: post.description.replace(/\r?\n/g, "<br>")
+          }}
+        />
         {post.image1 && (
           <img src={post.image1} className={styles.image} alt="img" />
         )}

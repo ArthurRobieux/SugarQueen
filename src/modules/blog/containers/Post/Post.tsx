@@ -49,7 +49,12 @@ export const Post = ({ match }: PostProps) => {
         <img src={post.image2} className={styles.image} alt="img" />
       )}
 
-      <div className={styles.description}>{post.description}</div>
+      <div
+        className={styles.description}
+        dangerouslySetInnerHTML={{
+          __html: post.description.replace(/\r?\n/g, "<br>")
+        }}
+      />
 
       {post.image3 && (
         <img src={post.image3} className={styles.image} alt="img" />
