@@ -4,7 +4,7 @@ import { Title, adminEmails, Button } from "../../../common-ui";
 import { PostCard } from "../PostCard";
 import { StoreContext } from "../../../../context/StoreContext";
 
-// import styles from "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 const customSorting = () => {
   return function(a: any, b: any) {
@@ -36,6 +36,8 @@ export const Blog = () => {
     onFetchData();
   }, []);
 
+  const emptyItems = 5 - (posts.length % 3);
+
   return (
     <div>
       <Title>Bienvenue dans le blog</Title>
@@ -44,9 +46,13 @@ export const Blog = () => {
         <Button to="/blog/create/" description="Ajouter un post" />
       )}
 
-      <div>
+      <div className={styles.posts}>
         {posts &&
           posts.map((post: any) => <PostCard key={post.image} post={post} />)}
+        {emptyItems &&
+          [...Array(emptyItems)].map(() => (
+            <div className={styles.emptyCard} />
+          ))}
       </div>
     </div>
   );

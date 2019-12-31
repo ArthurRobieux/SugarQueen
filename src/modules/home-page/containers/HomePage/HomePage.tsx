@@ -3,6 +3,8 @@ import firebase from "firebase";
 import { Title } from "../../../common-ui";
 import { PostCard } from "../../../blog/containers/PostCard";
 
+import styles from "./styles.module.scss";
+
 const customSorting = () => {
   return function(a: any, b: any) {
     if (a.date.seconds < b.date.seconds) return 1;
@@ -23,7 +25,7 @@ export const HomePage = () => {
         const p = s.docs.map((d: any) => {
           return d.data();
         });
-        setPosts(p.sort(customSorting()).slice(0, 5));
+        setPosts(p.sort(customSorting()).slice(0, 6));
       })
       .catch(r => console.log("R", r));
   };
@@ -31,6 +33,8 @@ export const HomePage = () => {
   useEffect(() => {
     onFetchData();
   }, []);
+
+  const emptyItems = 5 - (posts.length % 3);
 
   return (
     <div>
@@ -54,8 +58,14 @@ export const HomePage = () => {
         Enfin, si vous voulez en savoir un peu plus sur l'origine de la
         réalisation de ce site, rendez-vous dans l'onglet A Propos :).
       </p>
-      {posts &&
-        posts.map((post: any) => <PostCard key={post.image} post={post} />)}
+      <div className={styles.posts}>
+        {posts &&
+          posts.map((post: any) => <PostCard key={post.image} post={post} />)}
+        {emptyItems &&
+          [...Array(emptyItems)].map(() => (
+            <div className={styles.emptyCard} />
+          ))}
+      </div>
     </div>
   );
 };

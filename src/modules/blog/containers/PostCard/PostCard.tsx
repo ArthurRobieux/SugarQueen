@@ -14,27 +14,31 @@ export const PostCard = ({ post }: PostCardProps) => {
   return (
     <div className={styles.postCardContainer}>
       <NavLink to={`/blog/${post.id}/`} className={styles.postCard}>
-        <div className={styles.left}>
+        <div className={styles.top}>
           <div>
             <div className={styles.name}>{post.name}</div>
             <div className={styles.date}>
               {new Date(post.date.seconds * 1000).toLocaleString()}
             </div>
           </div>
+          <div className={styles.options}>
+            {store.user && adminEmails.includes(store.user.email) && (
+              <Button to={`/blog/${post.id}/edit/`} description="Editer" />
+            )}
+          </div>
+        </div>
+        <div className={styles.bottom}>
           <div
             className={styles.description}
             dangerouslySetInnerHTML={{
               __html: post.description.replace(/\r?\n/g, "<br>")
             }}
           />
-          {store.user && adminEmails.includes(store.user.email) && (
-            <Button to={`/blog/${post.id}/edit/`} description="Editer" />
-          )}
-        </div>
-        <div className={styles.right}>
-          {post.image1 && (
-            <img src={post.image1} className={styles.image} alt="img" />
-          )}
+          <div className={styles.imageContainer}>
+            {post.image1 && (
+              <img src={post.image1} className={styles.image} alt="img" />
+            )}
+          </div>
         </div>
       </NavLink>
     </div>

@@ -1,16 +1,22 @@
 .postCardContainer {
+  min-width: calc((100% - 30px) / 2);
+  max-width: calc((100% - 30px) / 2);
   box-sizing: border-box;
   margin-top: 20px;
+  @media only screen and (max-width: 800px) {
+    & {
+      min-width: calc((100%) / 1);
+      max-width: calc((100%) / 1);
+    }
+  }
 }
 
 .postCard {
   border-radius: 4px;
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
-  display: flex;
+  display: block;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  margin: 10px 0;
   text-decoration: none;
   transition-duration: 0.3s;
   overflow: hidden;
@@ -38,19 +44,35 @@
   padding: 10px;
   display: block;
   display: -webkit-box;
-  max-width: 100%;
-  height: 33px;
+  max-width: 50%;
+  height: 89px;
   margin: 10px 0;
   font-size: 14px;
   line-height: 1;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+.top,
+.bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.imageContainer {
+  width: 50%;
+  overflow: hidden;
+  display: flex;
+}
+
 .image {
-  max-width: 200px;
-  max-height: 200px;
+  width: 100%;
+}
+
+.options {
   padding: 10px;
+  display: flex;
+  justify-content: space-evenly;
 }
