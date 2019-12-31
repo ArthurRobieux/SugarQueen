@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import firebase from "firebase";
 import { RouteComponentProps } from "react-router";
-import { NavLink } from "react-router-dom";
 import { Loader, adminEmails, Button } from "../../../common-ui";
 import { StoreContext } from "../../../../context/StoreContext";
-import { PostCard } from "../PostCard";
 
 import styles from "./styles.module.scss";
 
@@ -29,7 +27,7 @@ export const Post = ({ match }: PostProps) => {
 
   useEffect(() => {
     onFetchData();
-  }, []);
+  });
 
   if (!post) return <Loader />;
 

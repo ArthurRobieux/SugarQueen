@@ -41,10 +41,10 @@ const App = withRouter(
   ({
     user,
     signOut,
-    signInWithGoogle,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
-  }: RoutesProps) => {
+    signInWithGoogle
+  }: // createUserWithEmailAndPassword,
+  // signInWithEmailAndPassword
+  RoutesProps) => {
     const [state, dispatch] = useReducer(reducer, {
       user: null
     });
@@ -62,8 +62,8 @@ const App = withRouter(
             user={user}
             signOut={signOut}
             signInWithGoogle={signInWithGoogle}
-            signInWithEmailAndPassword={signInWithEmailAndPassword}
-            createUserWithEmailAndPassword={createUserWithEmailAndPassword}
+            // signInWithEmailAndPassword={signInWithEmailAndPassword}
+            // createUserWithEmailAndPassword={createUserWithEmailAndPassword}
           />
           <MainMenu />
           <hr className={styles.hr} />

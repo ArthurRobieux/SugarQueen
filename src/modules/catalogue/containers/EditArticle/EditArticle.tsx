@@ -41,7 +41,7 @@ export const EditArticle = ({ match }: EditArticleProps) => {
 
   useEffect(() => {
     onFetchData();
-  }, []);
+  });
 
   const [form, setForm] = useState({
     name: "",

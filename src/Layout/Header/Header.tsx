@@ -7,16 +7,16 @@ export type HeaderProps = {
   user: any;
   signOut: any;
   signInWithGoogle: any;
-  signInWithEmailAndPassword: any;
-  createUserWithEmailAndPassword: any;
+  // signInWithEmailAndPassword: any;
+  // createUserWithEmailAndPassword: any;
 };
 export const Header = ({
   user,
   signOut,
-  signInWithGoogle,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword
-}: HeaderProps) => {
+  signInWithGoogle
+}: // signInWithEmailAndPassword,
+// createUserWithEmailAndPassword
+HeaderProps) => {
   return (
     <div className={styles.header}>
       {user && (

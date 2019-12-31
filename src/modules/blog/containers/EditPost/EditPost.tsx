@@ -45,7 +45,7 @@ export const EditPost = ({ match }: EditPostProps) => {
 
   useEffect(() => {
     onFetchData();
-  }, []);
+  });
 
   const [form, setForm] = useState({
     name: "",

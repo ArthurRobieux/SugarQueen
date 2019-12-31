@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router";
 import firebase from "firebase";
 import slugify from "slugify";
@@ -21,6 +21,8 @@ export const CreateArticle = () => {
   const [form, setForm] = useState({
     name: "",
     description: "",
+    price: "",
+    persons: "",
     image: null as any
   });
 
@@ -64,6 +66,8 @@ export const CreateArticle = () => {
             name: form.name,
             description: form.description,
             image: imageUrl,
+            price: form.price,
+            persons: form.persons,
             date: new Date()
           })
           .then(() => {
@@ -83,6 +87,16 @@ export const CreateArticle = () => {
           value={form.name}
           onChange={evt => setForm({ ...form, name: evt.target.value })}
           description="Nom"
+        />
+        <TextInput
+          value={form.price}
+          onChange={evt => setForm({ ...form, price: evt.target.value })}
+          description="Prix"
+        />
+        <TextInput
+          value={form.persons}
+          onChange={evt => setForm({ ...form, persons: evt.target.value })}
+          description="Nb de personnes"
         />
         <TextareaInput
           value={form.description}
