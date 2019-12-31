@@ -32,6 +32,8 @@ export const EditArticle = ({ match }: EditArticleProps) => {
         setForm({
           name: c ? c.name : "",
           description: c ? c.description : "",
+          price: c ? c.price : "",
+          persons: c ? c.persons : "",
           image: null
         });
       });
@@ -44,6 +46,8 @@ export const EditArticle = ({ match }: EditArticleProps) => {
   const [form, setForm] = useState({
     name: "",
     description: "",
+    price: "",
+    persons: "",
     image: null as any
   });
 
@@ -84,7 +88,9 @@ export const EditArticle = ({ match }: EditArticleProps) => {
           .doc(match.params.id)
           .update({
             name: form.name,
+            price: form.price,
             description: form.description,
+            persons: form.persons,
             image: imageUrl || article.image
           })
           .then(() => {
@@ -106,6 +112,16 @@ export const EditArticle = ({ match }: EditArticleProps) => {
         value={form.name}
         onChange={evt => setForm({ ...form, name: evt.target.value })}
         description="Nom"
+      />
+      <TextInput
+        value={form.price}
+        onChange={evt => setForm({ ...form, price: evt.target.value })}
+        description="Prix"
+      />
+      <TextInput
+        value={form.persons}
+        onChange={evt => setForm({ ...form, persons: evt.target.value })}
+        description="Nb de personnes"
       />
       <TextareaInput
         value={form.description}

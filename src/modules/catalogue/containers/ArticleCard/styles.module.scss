@@ -5,8 +5,8 @@
   margin-top: 20px;
   @media only screen and (max-width: 800px) {
     & {
-      min-width: calc((100% - 30px) / 1);
-      max-width: calc((100% - 30px) / 1);
+      min-width: calc((100%) / 1);
+      max-width: calc((100%) / 1);
     }
   }
 }
@@ -40,13 +40,37 @@
 
 .name {
   font-weight: bold;
+  text-align: left;
+  font-size: 20px;
+  padding: 0 10px;
+}
+
+.infos {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  height: 20px;
+}
+
+.persons {
+  color: black;
+}
+
+.price {
+  color: black;
 }
 
 .description {
   color: gray;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   overflow: hidden;
-  width: 100%;
+  height: 100px;
   padding: 0 10px;
+  text-align: left;
+  font-style: italic;
+}
+
+.options {
+  padding: 10px;
+  display: flex;
+  justify-content: space-evenly;
 }
