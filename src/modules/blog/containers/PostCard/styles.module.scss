@@ -64,11 +64,12 @@
 .imageContainer {
   width: 50%;
   overflow: hidden;
-  display: flex;
+  position: relative;
 }
 
 .image {
   width: 100%;
+  position: absolute;
 }
 
 .options {
