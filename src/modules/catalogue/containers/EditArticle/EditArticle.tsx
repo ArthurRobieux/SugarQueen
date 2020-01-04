@@ -34,21 +34,23 @@ export const EditArticle = ({ match }: EditArticleProps) => {
           description: c ? c.description : "",
           price: c ? c.price : "",
           persons: c ? c.persons : "",
-          image: null
+          image: null,
+          keywords: c ? c.keywords : ""
         });
       });
   };
 
   useEffect(() => {
     onFetchData();
-  });
+  }, []);
 
   const [form, setForm] = useState({
     name: "",
     description: "",
     price: "",
     persons: "",
-    image: null as any
+    image: null as any,
+    keywords: ""
   });
 
   const updateArticle = () => {
@@ -91,7 +93,8 @@ export const EditArticle = ({ match }: EditArticleProps) => {
             price: form.price,
             description: form.description,
             persons: form.persons,
-            image: imageUrl || article.image
+            image: imageUrl || article.image,
+            keywords: form.keywords
           })
           .then(() => {
             setLoading(false);
@@ -138,6 +141,11 @@ export const EditArticle = ({ match }: EditArticleProps) => {
         description="Image 1"
         value={form.image}
         oldValue={article.image}
+      />
+      <TextareaInput
+        value={form.keywords}
+        onChange={evt => setForm({ ...form, keywords: evt.target.value })}
+        description="Mots clés"
       />
       {loading ? (
         <FormLoader />

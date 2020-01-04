@@ -22,7 +22,8 @@ export const CreatePost = () => {
     image2: null as any,
     image3: null as any,
     image4: null as any,
-    image5: null as any
+    image5: null as any,
+    keywords: ""
   });
 
   const [redirect, setRedirect] = useState(false);
@@ -156,7 +157,8 @@ export const CreatePost = () => {
             image3: url3,
             image4: url4,
             image5: url5,
-            date: new Date()
+            date: new Date(),
+            keywords: form.keywords
           })
           .then(() => {
             setLoading(false);
@@ -232,7 +234,11 @@ export const CreatePost = () => {
           description="Image 5"
           value={form.image5}
         />
-
+        <TextareaInput
+          value={form.keywords}
+          onChange={evt => setForm({ ...form, keywords: evt.target.value })}
+          description="Mots clés"
+        />
         {loading ? (
           <FormLoader />
         ) : (

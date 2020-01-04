@@ -55,6 +55,20 @@ export const Recherche = ({ match }: RechercheProps) => {
     onFetchData();
   }, []);
 
+  const filteredElements = (elements: any) => {
+    return elements.filter(
+      (element: any) =>
+        (element.name &&
+          element.name
+            .toLocaleLowerCase()
+            .includes(match.params.id.toLocaleLowerCase())) ||
+        (element.keywords &&
+          element.keywords
+            .toLocaleLowerCase()
+            .includes(match.params.id.toLocaleLowerCase()))
+    );
+  };
+
   const emptyItems = 3 - (posts.length % 3);
 
   if (loading) return <Loader />;
@@ -62,33 +76,29 @@ export const Recherche = ({ match }: RechercheProps) => {
   return (
     <div>
       <Title>Recherche : {match.params.id}</Title>
-      <Title>Catalogue</Title>
+      <div className={styles.subTitle}>Catalogue</div>
       <div className={styles.articles}>
-        {articles &&
-          articles.map(
-            (article: any) =>
-              article.name
-                .toLocaleLowerCase()
-                .includes(match.params.id.toLocaleLowerCase()) && (
-                <ArticleCard article={article} />
-              )
-          )}
+        {filteredElements(articles).length ? (
+          filteredElements(articles).map((article: any) => (
+            <ArticleCard article={article} />
+          ))
+        ) : (
+          <div>Aucun résultat dans le catalogue.</div>
+        )}
         {emptyItems &&
           [...Array(emptyItems)].map(() => (
             <div className={styles.emptyCard} />
           ))}
       </div>
-      <Title>Blog</Title>
+      <div className={styles.subTitle}>Blog</div>
       <div className={styles.posts}>
-        {posts &&
-          posts.map(
-            (post: any) =>
-              post.name
-                .toLocaleLowerCase()
-                .includes(match.params.id.toLocaleLowerCase()) && (
-                <PostCard key={post.image} post={post} />
-              )
-          )}
+        {filteredElements(posts).length ? (
+          filteredElements(posts).map((post: any) => (
+            <PostCard key={post.image} post={post} />
+          ))
+        ) : (
+          <div>Aucun résultat dans le blog.</div>
+        )}
       </div>
     </div>
   );

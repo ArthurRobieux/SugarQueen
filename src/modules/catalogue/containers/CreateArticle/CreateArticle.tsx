@@ -23,7 +23,8 @@ export const CreateArticle = () => {
     description: "",
     price: "",
     persons: "",
-    image: null as any
+    image: null as any,
+    keywords: ""
   });
 
   const addArticle = () => {
@@ -68,7 +69,8 @@ export const CreateArticle = () => {
             image: imageUrl,
             price: form.price,
             persons: form.persons,
-            date: new Date()
+            date: new Date(),
+            keywords: form.keywords
           })
           .then(() => {
             setLoading(false);
@@ -112,6 +114,11 @@ export const CreateArticle = () => {
           }
           description="Image 1"
           value={form.image}
+        />
+        <TextareaInput
+          value={form.keywords}
+          onChange={evt => setForm({ ...form, keywords: evt.target.value })}
+          description="Mots clés"
         />
         {loading ? (
           <FormLoader />

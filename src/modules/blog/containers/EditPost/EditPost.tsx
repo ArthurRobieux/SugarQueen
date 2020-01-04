@@ -38,14 +38,15 @@ export const EditPost = ({ match }: EditPostProps) => {
           image2: null,
           image3: null,
           image4: null,
-          image5: null
+          image5: null,
+          keywords: c ? c.keywords : ""
         });
       });
   };
 
   useEffect(() => {
     onFetchData();
-  });
+  }, []);
 
   const [form, setForm] = useState({
     name: "",
@@ -54,7 +55,8 @@ export const EditPost = ({ match }: EditPostProps) => {
     image2: null as any,
     image3: null as any,
     image4: null as any,
-    image5: null as any
+    image5: null as any,
+    keywords: ""
   });
 
   const updatePost = () => {
@@ -184,7 +186,8 @@ export const EditPost = ({ match }: EditPostProps) => {
             image2: url2 || post.image2,
             image3: url3 || post.image3,
             image4: url4 || post.image4,
-            image5: url5 || post.image5
+            image5: url5 || post.image5,
+            keywords: form.keywords
           })
           .then(() => {
             setLoading(false);
@@ -265,6 +268,11 @@ export const EditPost = ({ match }: EditPostProps) => {
         description="Image 5"
         value={form.image5}
         oldValue={post.image5}
+      />
+      <TextareaInput
+        value={form.keywords}
+        onChange={evt => setForm({ ...form, keywords: evt.target.value })}
+        description="Mots clés"
       />
 
       {loading ? (

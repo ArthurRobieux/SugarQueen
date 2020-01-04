@@ -34,7 +34,7 @@ HeaderProps) => {
         />
       </div>
       {user && (
-        <p>
+        <div>
           <div className={styles.account}>
             <div className={styles.userName}>
               Bonjour,{" "}
@@ -42,7 +42,7 @@ HeaderProps) => {
             </div>
             <Button onClick={signOut} description="Se déconnecter" />
           </div>
-        </p>
+        </div>
       )}
 
       {!user && (
