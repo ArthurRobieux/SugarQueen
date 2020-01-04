@@ -77,7 +77,7 @@ const App = withRouter(
               <Route path="/catalogue/:id/edit/" component={EditArticle} />
             )}
             <Route path="/catalogue/" component={Catalogue} />
-            <Route path="/recherche/:id/" component={Recherche} />
+            <Route path="/recherche/" component={Recherche} />
             {user && adminEmails.includes(user.email) && (
               <Route path="/blog/create/" component={CreatePost} />
             )}

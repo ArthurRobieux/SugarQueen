@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { RouteComponentProps } from "react-router";
 import firebase from "firebase";
 import { Title, Loader } from "../../../common-ui";
 import { ArticleCard } from "../../../catalogue/containers/ArticleCard";
 import { PostCard } from "../../../blog/containers/PostCard";
 
 import styles from "./styles.module.scss";
-
-export type RechercheProps = RouteComponentProps<{ id: string }>;
 
 const customSorting = () => {
   return function(a: any, b: any) {
@@ -17,7 +14,7 @@ const customSorting = () => {
   };
 };
 
-export const Recherche = ({ match }: RechercheProps) => {
+export const Recherche = () => {
   const [articles, setArticles] = useState([] as any[]);
   const [posts, setPosts] = useState([] as any[]);
   const [loading, setLoading] = useState(true);
@@ -61,11 +58,11 @@ export const Recherche = ({ match }: RechercheProps) => {
         (element.name &&
           element.name
             .toLocaleLowerCase()
-            .includes(match.params.id.toLocaleLowerCase())) ||
+            .includes(window.location.search.substr(1).toLocaleLowerCase())) ||
         (element.keywords &&
           element.keywords
             .toLocaleLowerCase()
-            .includes(match.params.id.toLocaleLowerCase()))
+            .includes(window.location.search.substr(1).toLocaleLowerCase()))
     );
   };
 
@@ -75,7 +72,7 @@ export const Recherche = ({ match }: RechercheProps) => {
 
   return (
     <div>
-      <Title>Recherche : {match.params.id}</Title>
+      <Title>Recherche : {window.location.search.substr(1)}</Title>
       <div className={styles.subTitle}>Catalogue</div>
       <div className={styles.articles}>
         {filteredElements(articles).length ? (

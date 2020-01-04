@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import styles from "./styles.module.scss";
 import { SocialNetworkButton } from "../../modules/common-ui/SocialNetworkButton";
 import { Button, TextInput } from "../../modules/common-ui";
@@ -19,20 +20,12 @@ export const Header = ({
 HeaderProps) => {
   const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    if (window.location.pathname !== "/recherche") setSearch("");
+  }, [window.location.pathname]);
+
   return (
     <div className={styles.header}>
-      <div className={styles.search}>
-        <TextInput
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          description=""
-        />
-        <Button
-          description="Chercher"
-          to={`/recherche/${search}/`}
-          onClick={() => setSearch("")}
-        />
-      </div>
       {user && (
         <div>
           <div className={styles.account}>
@@ -44,7 +37,6 @@ HeaderProps) => {
           </div>
         </div>
       )}
-
       {!user && (
         <>
           <div className={styles.account}>
@@ -83,6 +75,15 @@ HeaderProps) => {
         className={styles.logo}
         alt="logo"
       />
+      <div className={styles.search}>
+        <TextInput
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          description=""
+          placeholder="Rechercher.."
+        />
+      </div>
+      {search && <Redirect to={`/recherche?${search}`} />}
     </div>
   );
 };
