@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import firebase from "firebase";
-import { Title, adminEmails, Button } from "../../../common-ui";
+import { Title, adminEmails, Button, Loader } from "../../../common-ui";
 import { PostCard } from "../PostCard";
 import { StoreContext } from "../../../../context/StoreContext";
 
@@ -17,6 +17,7 @@ const customSorting = () => {
 export const Blog = () => {
   const store = useContext(StoreContext);
   const [posts, setPosts] = useState([] as any[]);
+  const [loading, setLoading] = useState(true);
 
   const onFetchData = () => {
     firebase
@@ -28,6 +29,7 @@ export const Blog = () => {
           return d.data();
         });
         setPosts(p.sort(customSorting()));
+        setLoading(false);
       })
       .catch(r => console.log("R", r));
   };
@@ -36,7 +38,7 @@ export const Blog = () => {
     onFetchData();
   }, []);
 
-  const emptyItems = 5 - (posts.length % 3);
+  if (loading) return <Loader />;
 
   return (
     <div>
@@ -49,10 +51,6 @@ export const Blog = () => {
       <div className={styles.posts}>
         {posts &&
           posts.map((post: any) => <PostCard key={post.image} post={post} />)}
-        {emptyItems &&
-          [...Array(emptyItems)].map(() => (
-            <div className={styles.emptyCard} />
-          ))}
       </div>
     </div>
   );

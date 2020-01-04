@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import firebase from "firebase";
-import { Title, adminEmails, Button } from "../../../common-ui";
+import { Title, adminEmails, Button, Loader } from "../../../common-ui";
 import { ArticleCard } from "../ArticleCard";
 import { StoreContext } from "../../../../context/StoreContext";
 
@@ -9,19 +9,21 @@ import styles from "./styles.module.scss";
 export const Catalogue = () => {
   const store = useContext(StoreContext);
   const [articles, setArticles] = useState([] as any[]);
+  const [loading, setLoading] = useState(true);
 
   const onFetchData = () => {
     firebase
       .firestore()
       .collection("Catalog")
       .get()
-      .then((s: any) =>
+      .then((s: any) => {
         setArticles(
           s.docs.map((d: any) => {
             return d.data();
           })
-        )
-      )
+        );
+        setLoading(false);
+      })
       .catch(r => console.log("R", r));
   };
 
@@ -29,7 +31,9 @@ export const Catalogue = () => {
     onFetchData();
   }, []);
 
-  const emptyItems = 5 - (articles.length % 3);
+  const emptyItems = 3 - (articles.length % 3);
+
+  if (loading) return <Loader />;
 
   return (
     <div>

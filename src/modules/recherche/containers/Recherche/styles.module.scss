@@ -1,0 +1,12 @@
+.articles,
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.emptyCard {
+  min-width: calc((100% - 30px) / 3);
+  max-width: calc((100% - 30px) / 3);
+  box-sizing: border-box;
+}

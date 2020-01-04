@@ -48,7 +48,7 @@ HeaderProps) => {
       {!user && (
         <>
           <div className={styles.account}>
-            <Button onClick={signInWithGoogle} description="Se connecter" />
+            <Button onClick={signInWithGoogle} description="Connexion" />
           </div>
 
           {/* <button
