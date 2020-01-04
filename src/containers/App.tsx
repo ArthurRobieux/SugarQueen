@@ -27,6 +27,7 @@ import { CreatePost } from "../modules/blog/containers/CreatePost";
 import { CreateArticle } from "../modules/catalogue/containers/CreateArticle";
 import { EditPost } from "../modules/blog/containers/EditPost";
 import { EditArticle } from "../modules/catalogue/containers/EditArticle";
+import { Recherche } from "../modules/recherche";
 
 export type RoutesProps = {
   user: any;
@@ -76,6 +77,7 @@ const App = withRouter(
               <Route path="/catalogue/:id/edit/" component={EditArticle} />
             )}
             <Route path="/catalogue/" component={Catalogue} />
+            <Route path="/recherche/:id/" component={Recherche} />
             {user && adminEmails.includes(user.email) && (
               <Route path="/blog/create/" component={CreatePost} />
             )}

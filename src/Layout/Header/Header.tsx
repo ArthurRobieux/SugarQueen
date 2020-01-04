@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { SocialNetworkButton } from "../../modules/common-ui/SocialNetworkButton";
-import { Button } from "../../modules/common-ui";
+import { Button, TextInput } from "../../modules/common-ui";
 
 export type HeaderProps = {
   user: any;
@@ -17,11 +17,25 @@ export const Header = ({
 }: // signInWithEmailAndPassword,
 // createUserWithEmailAndPassword
 HeaderProps) => {
+  const [search, setSearch] = useState("");
+
   return (
     <div className={styles.header}>
+      <div className={styles.search}>
+        <TextInput
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          description=""
+        />
+        <Button
+          description="Chercher"
+          to={`/recherche/${search}/`}
+          onClick={() => setSearch("")}
+        />
+      </div>
       {user && (
         <p>
-          <div className={styles.button}>
+          <div className={styles.account}>
             <div className={styles.userName}>
               Bonjour,{" "}
               {user.displayName ? user.displayName : user.email.split("@")[0]}
@@ -33,7 +47,7 @@ HeaderProps) => {
 
       {!user && (
         <>
-          <div className={styles.button}>
+          <div className={styles.account}>
             <Button onClick={signInWithGoogle} description="Se connecter" />
           </div>
 

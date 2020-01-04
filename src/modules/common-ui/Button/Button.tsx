@@ -10,18 +10,17 @@ export type ButtonProps = {
 };
 
 export const Button = ({ description, onClick, to }: ButtonProps) => {
-  if (onClick) {
+  if (to) {
+    return (
+      <NavLink to={to} className={styles.button} onClick={onClick}>
+        {description}
+      </NavLink>
+    );
+  } else if (onClick) {
     return (
       <button type="button" onClick={onClick} className={styles.button}>
         {description}
       </button>
     );
-  } else if (to) {
-    return (
-      <NavLink to={to} className={styles.button}>
-        {description}
-      </NavLink>
-    );
-  }
-  return <div className={styles.button}>{description}</div>;
+  } else return <div className={styles.button}>{description}</div>;
 };
