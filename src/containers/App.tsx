@@ -21,6 +21,7 @@ import { Blog } from "../modules/blog";
 import { Contact } from "../modules/contact";
 import { Apropos } from "../modules/a-propos";
 import { Header } from "../Layout/Header";
+import { Footer } from "../Layout/Footer";
 import { MainMenu } from "../Layout/MainMenu";
 import { Post } from "../modules/blog/containers/Post";
 import { CreatePost } from "../modules/blog/containers/CreatePost";
@@ -89,6 +90,8 @@ const App = withRouter(
             <Route path="/contact/" component={Contact} />
             <Route path="/apropos/" component={Apropos} />
           </Switch>
+          <hr className={styles.hr} />
+          <Footer />
         </StoreContext.Provider>
       </Page>
     );
