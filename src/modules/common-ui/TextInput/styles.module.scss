@@ -1,3 +1,8 @@
+@font-face {
+  font-family: GeosansLight;
+  src: url("../../../assets/font/GeosansLight.ttf");
+}
+
 .textInputContainer {
   width: 100%;
 }
@@ -9,12 +14,13 @@
 .textInput {
   height: 44px;
   border-radius: 4px;
-  border: 1px solid gray;
+  border: 1px solid lightgray;
   padding: 10px;
   font-size: 14px;
   box-sizing: border-box;
+  font-family: GeosansLight;
   &:focus {
     outline: none;
-    border: 1px solid black;
+    border: 1px solid burlywood;
   }
 }
