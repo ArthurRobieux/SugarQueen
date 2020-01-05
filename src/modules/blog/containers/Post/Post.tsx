@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import firebase from "firebase";
 import { RouteComponentProps } from "react-router";
-import { Loader, adminEmails, Button } from "../../../common-ui";
+import { Loader, adminEmails, Button, Title } from "../../../common-ui";
 import { StoreContext } from "../../../../context/StoreContext";
 
 import styles from "./styles.module.scss";
@@ -34,7 +34,7 @@ export const Post = ({ match }: PostProps) => {
   return (
     <div>
       <div className={styles.name}>
-        <>{post.name}</>
+        <Title>{post.name}</Title>
         {store.user && adminEmails.includes(store.user.email) && (
           <Button description="Editer" to={`/blog/${match.params.id}/edit/`} />
         )}

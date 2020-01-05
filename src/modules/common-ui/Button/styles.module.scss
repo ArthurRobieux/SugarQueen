@@ -13,9 +13,10 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  min-width: 100px;
+  min-width: 60px;
   max-width: 150px;
   text-decoration: none;
+  padding: 0 10px;
   font-family: GeosansLight;
   &:hover {
     opacity: 0.8;

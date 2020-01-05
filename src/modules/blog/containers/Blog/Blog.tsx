@@ -42,11 +42,12 @@ export const Blog = () => {
 
   return (
     <div>
-      <Title>Bienvenue dans le blog</Title>
-
-      {store.user && adminEmails.includes(store.user.email) && (
-        <Button to="/blog/create/" description="Ajouter un post" />
-      )}
+      <div className={styles.name}>
+        <Title>Blog</Title>
+        {store.user && adminEmails.includes(store.user.email) && (
+          <Button to="/blog/create/" description="Ajouter un post" />
+        )}
+      </div>
 
       <div className={styles.posts}>
         {posts &&

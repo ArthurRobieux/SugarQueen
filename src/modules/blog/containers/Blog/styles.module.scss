@@ -4,6 +4,14 @@
   justify-content: space-between;
 }
 
+.name {
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .emptyCard {
   min-width: calc((100% - 30px) / 3);
   max-width: calc((100% - 30px) / 3);

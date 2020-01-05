@@ -37,10 +37,12 @@ export const Catalogue = () => {
 
   return (
     <div>
-      <Title>Bienvenue dans le catalogue</Title>
-      {store.user && adminEmails.includes(store.user.email) && (
-        <Button to="/catalogue/create/" description="Ajouter un article" />
-      )}
+      <div className={styles.name}>
+        <Title>Catalogue</Title>
+        {store.user && adminEmails.includes(store.user.email) && (
+          <Button to="/catalogue/create/" description="Ajouter un article" />
+        )}
+      </div>
       <div className={styles.content}>
         <div>
           Dans ce catalogue vous pourrez trouver quelques idées de pâtisseries
