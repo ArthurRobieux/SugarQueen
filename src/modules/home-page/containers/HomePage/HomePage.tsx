@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
-import { Title } from "../../../common-ui";
+import { Title, Loader } from "../../../common-ui";
 import { PostCard } from "../../../blog/containers/PostCard";
 
 import styles from "./styles.module.scss";
@@ -15,6 +15,7 @@ const customSorting = () => {
 
 export const HomePage = () => {
   const [posts, setPosts] = useState([] as any[]);
+  const [loading, setLoading] = useState(true);
 
   const onFetchData = () => {
     firebase
@@ -26,6 +27,7 @@ export const HomePage = () => {
           return d.data();
         });
         setPosts(p.sort(customSorting()).slice(0, 6));
+        setLoading(false);
       })
       .catch(r => console.log("R", r));
   };
@@ -58,6 +60,7 @@ export const HomePage = () => {
         Enfin, si vous voulez en savoir un peu plus sur l'origine de la
         réalisation de ce site, rendez-vous dans l'onglet A Propos :).
       </p>
+      {loading && <Loader />}
       <div className={styles.posts}>
         {posts &&
           posts.map((post: any) => <PostCard key={post.image} post={post} />)}
