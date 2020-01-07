@@ -29,12 +29,20 @@
 .image {
   width: 100%;
   border-radius: 4px 4px 0 0;
-  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
 }
 
 .imageContainer {
-  height: 185px;
+  position: relative;
+  padding-top: 60%;
+  width: 100%;
   overflow: hidden;
+  border-radius: 4px 4px 0 0;
 }
 
 .infoContainer {
