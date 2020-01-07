@@ -1,6 +1,7 @@
 .mainMenu {
   display: flex;
   justify-content: center;
+  align-items: center;
   @media only screen and (max-width: 800px) {
     & {
       display: none;
@@ -11,6 +12,7 @@
 .mainMenuResponsive {
   display: none;
   justify-content: center;
+  align-items: center;
   @media only screen and (max-width: 800px) {
     & {
       display: flex;
@@ -43,4 +45,13 @@
       margin: 10px 0;
     }
   }
+  transition-duration: 0.3s;
+  &:hover {
+    color: gray;
+    opacity: 0.6;
+  }
+}
+
+.activeTab {
+  color: gray;
 }

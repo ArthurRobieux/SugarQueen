@@ -60,13 +60,7 @@ const App = withRouter(
     return (
       <Page>
         <StoreContext.Provider value={contextValue}>
-          <Header
-            user={user}
-            signOut={signOut}
-            signInWithGoogle={signInWithGoogle}
-            // signInWithEmailAndPassword={signInWithEmailAndPassword}
-            // createUserWithEmailAndPassword={createUserWithEmailAndPassword}
-          />
+          <Header />
           <MainMenu />
           <hr className={styles.hr} />
           <Switch>
@@ -91,7 +85,11 @@ const App = withRouter(
             <Route path="/apropos/" component={Apropos} />
           </Switch>
           <hr className={styles.hr} />
-          <Footer />
+          <Footer
+            user={user}
+            signOut={signOut}
+            signInWithGoogle={signInWithGoogle}
+          />
         </StoreContext.Provider>
       </Page>
     );

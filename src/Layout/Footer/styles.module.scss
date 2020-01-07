@@ -3,6 +3,34 @@
   position: relative;
 }
 
+.user {
+  position: absolute;
+  left: 0;
+  top: 10px;
+}
+
+.userName {
+  padding: 0 10px;
+  @media only screen and (max-width: 800px) {
+    & {
+      display: none;
+    }
+  }
+}
+
+.account {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  color: gray;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
 .socialNetworks {
   margin-bottom: 20px;
 }

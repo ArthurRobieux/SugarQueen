@@ -43,12 +43,12 @@ export const HomePage = () => {
       <Title>Accueil</Title>
       <p>Bienvenue sur mon site !</p>
       <p>
-        Ici vous pourrez retrouver de nombreuses photos de mes réalisions avec
+        Ici vous pourrez retrouver de nombreuses photos de mes réalisations avec
         quelques explications dans la partie Blog, vous pourrez aussi y laisser
         des commentaires si vous le souhaitez.
       </p>
       <p>
-        Le catalogue quand à lui pourra vous donner quelques idées de commandes,
+        Le catalogue quant à lui pourra vous donner quelques idées de commandes,
         et dans ce cas, rendez-vous dans la partie contact qui vous permettra de
         m'envoyer un mail.
       </p>

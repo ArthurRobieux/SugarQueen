@@ -2,4 +2,9 @@
   width: 25px;
   height: 25px;
   margin: 5px;
+  transition-duration: 0.3s;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
 }

@@ -11,15 +11,19 @@ export const MainMenu = () => {
         <NavLink to="/" className={styles.tab}>
           Accueil
         </NavLink>
+        |
         <NavLink to="/catalogue/" className={styles.tab}>
           Catalogue
         </NavLink>
+        |
         <NavLink to="/blog/" className={styles.tab}>
           Blog
         </NavLink>
+        |
         <NavLink to="/contact/" className={styles.tab}>
           Contact
         </NavLink>
+        |
         <NavLink to="/apropos/" className={styles.tab}>
           A propos
         </NavLink>
