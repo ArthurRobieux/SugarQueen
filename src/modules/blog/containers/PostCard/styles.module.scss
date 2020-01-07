@@ -1,6 +1,6 @@
 .postCardContainer {
-  min-width: calc((100% - 30px) / 2);
-  max-width: calc((100% - 30px) / 2);
+  min-width: calc((100% - 30px) / 3);
+  max-width: calc((100% - 30px) / 3);
   box-sizing: border-box;
   margin-top: 20px;
   @media only screen and (max-width: 800px) {
@@ -14,62 +14,67 @@
 .postCard {
   border-radius: 4px;
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
-  display: block;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  text-decoration: none;
   transition-duration: 0.3s;
-  overflow: hidden;
   &:hover {
-    cursor: pointer;
-    transform: scale(0.98);
+    transform: scale(0.95);
   }
 }
 
-.name {
-  font-size: 18px;
+.image {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  display: block;
+}
+
+.imageContainer {
+  height: 185px;
+  overflow: hidden;
+}
+
+.infoContainer {
   padding: 10px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.name {
+  font-weight: bold;
+  text-align: left;
+  font-size: 20px;
+  padding: 0 10px;
   color: black;
+  text-decoration: none;
 }
 
 .date {
-  font-size: 14px;
-  padding: 0 10px;
+  font-size: 16px;
+  padding: 10px;
   color: gray;
+  text-align: left;
 }
 
 .description {
   font-size: 14px;
   color: gray;
-  padding: 10px;
+  padding: 0 10px;
   display: block;
   display: -webkit-box;
-  max-width: 50%;
-  height: 89px;
+  height: 115px;
   margin: 10px 0;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.top,
-.bottom {
-  display: flex;
-  justify-content: space-between;
-}
-
-.imageContainer {
-  width: 50%;
-  overflow: hidden;
-  position: relative;
-}
-
-.image {
-  width: 100%;
-  position: absolute;
+  text-align: left;
+  font-style: italic;
 }
 
 .options {

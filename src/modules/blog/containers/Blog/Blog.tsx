@@ -38,6 +38,8 @@ export const Blog = () => {
     onFetchData();
   }, []);
 
+  const emptyItems = 3 - (posts.length % 3);
+
   if (loading) return <Loader />;
 
   return (
@@ -52,6 +54,10 @@ export const Blog = () => {
       <div className={styles.posts}>
         {posts &&
           posts.map((post: any) => <PostCard key={post.image} post={post} />)}
+        {emptyItems &&
+          [...Array(emptyItems)].map(() => (
+            <div className={styles.emptyCard} />
+          ))}
       </div>
     </div>
   );
