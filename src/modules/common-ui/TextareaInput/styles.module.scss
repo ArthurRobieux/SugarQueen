@@ -4,7 +4,7 @@
 }
 .textareaInputContainer {
   width: 100%;
-  margin: 10px 0;
+  margin-bottom: 20px;
 }
 
 .description {
@@ -24,6 +24,11 @@
   &:focus {
     outline: none;
     border: 1px solid burlywood;
+  }
+  @media only screen and (max-width: 800px) {
+    & {
+      width: 100%;
+    }
   }
 }
 
