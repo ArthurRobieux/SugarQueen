@@ -66,6 +66,10 @@ export const Contact = () => {
           } else if (response.status === "fail") {
             setError("Message non envoyé, une erreur est survenue.");
           }
+        })
+        .catch(() => {
+          setLoading(false);
+          setError("Message non envoyé, une erreur est survenue.");
         });
     }
   };
