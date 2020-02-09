@@ -77,15 +77,33 @@ export const Contact = () => {
       <div className={styles.block}>
         <div>
           <b>Email</b> :{" "}
-          <a href="mailto:sugarqueen.pro@gmail.com">sugarqueen.pro@gmail.com</a>
+          <a href="mailto:sugarqueen.pro@gmail.com" className={styles.link}>
+            sugarqueen.pro@gmail.com
+          </a>
         </div>
         <br />
         <div>
-          <b>Instagram</b> : @sugarqueen.pro​
+          <b>Instagram</b> :{" "}
+          <a
+            href="https://www.instagram.com/sugarqueen.pro/"
+            className={styles.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @sugarqueen.pro​
+          </a>
         </div>
         <br />
         <div>
-          <b>Facebook</b> : sugarqueen.pro
+          <b>Facebook</b> :{" "}
+          <a
+            href="https://www.facebook.com/sugarqueen.pr0/"
+            className={styles.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            sugarqueen.pro
+          </a>
         </div>
       </div>
       <Title>Contact</Title>
