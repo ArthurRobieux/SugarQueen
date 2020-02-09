@@ -46,17 +46,14 @@ export const Contact = () => {
       setLoading(true);
       setSuccess("");
       setError("");
-      fetch(
-        "http://sugarqueenmail-env.i2sumqq3pr.us-east-1.elasticbeanstalk.com/send/",
-        {
-          method: "POST",
-          body: JSON.stringify(form),
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          }
+      fetch("https://mail.sugarqueen.fr/send/", {
+        method: "POST",
+        body: JSON.stringify(form),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
         }
-      )
+      })
         .then(response => response.json())
         .then(response => {
           setLoading(false);
