@@ -46,14 +46,17 @@ export const Contact = () => {
       setLoading(true);
       setSuccess("");
       setError("");
-      fetch("http://localhost:3002/send/", {
-        method: "POST",
-        body: JSON.stringify(form),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+      fetch(
+        "http://sugarqueenmail-env.i2sumqq3pr.us-east-1.elasticbeanstalk.com/send/",
+        {
+          method: "POST",
+          body: JSON.stringify(form),
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          }
         }
-      })
+      )
         .then(response => response.json())
         .then(response => {
           setLoading(false);
@@ -72,7 +75,8 @@ export const Contact = () => {
       <Title>Coordonnés</Title>
       <div className={styles.block}>
         <div>
-          <b>Email</b> : sugarqueen.pro@gmail.com
+          <b>Email</b> :{" "}
+          <a href="mailto:sugarqueen.pro@gmail.com">sugarqueen.pro@gmail.com</a>
         </div>
         <br />
         <div>
@@ -85,11 +89,8 @@ export const Contact = () => {
       </div>
       <Title>Contact</Title>
       <div className={styles.block}>
-        Si vous avez des questions ou une commande à passer, veuillez me
-        contacter à l'adresse mail suivante :{" "}
-        <b>
-          <a href="mailto:sugarqueen.pro@gmail.com">sugarqueen.pro@gmail.com</a>
-        </b>
+        Si vous avez des questions ou une commande à passer, vous pouvez me
+        contacter via ce formulaire :{" "}
       </div>
 
       <TextInput
