@@ -1,10 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import {
-  Route,
-  Switch,
-  RouteComponentProps,
-  withRouter
-} from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 
 import withFirebaseAuth from "react-with-firebase-auth";
 import { firebaseAppAuth, providers } from "../firebaseConfig";
@@ -14,21 +9,14 @@ import { reducer } from "./reducer";
 import { receiveUser } from "./actions";
 
 import styles from "./styles.module.scss";
-import { Page, adminEmails } from "../modules/common-ui";
-import { HomePage } from "../modules/home-page";
-import { Catalogue } from "../modules/catalogue";
-import { Blog } from "../modules/blog";
-import { Contact } from "../modules/contact";
-import { Apropos } from "../modules/a-propos";
+import { Page } from "../modules/common-ui";
+
 import { Header } from "../Layout/Header";
 import { Footer } from "../Layout/Footer";
 import { MainMenu } from "../Layout/MainMenu";
-import { Post } from "../modules/blog/containers/Post";
-import { CreatePost } from "../modules/blog/containers/CreatePost";
-import { CreateArticle } from "../modules/catalogue/containers/CreateArticle";
-import { EditPost } from "../modules/blog/containers/EditPost";
-import { EditArticle } from "../modules/catalogue/containers/EditArticle";
-import { Recherche } from "../modules/recherche";
+
+import { initReactGA } from "../initAnalytics";
+import { Routes } from "./Routes/Routes";
 
 export type RoutesProps = {
   user: any;
@@ -39,62 +27,44 @@ export type RoutesProps = {
   id: number;
 } & RouteComponentProps;
 
-const App = withRouter(
-  ({
-    user,
-    signOut,
-    signInWithGoogle
-  }: // createUserWithEmailAndPassword,
-  // signInWithEmailAndPassword
-  RoutesProps) => {
-    const [state, dispatch] = useReducer(reducer, {
-      user: null
-    });
+const App = ({
+  user,
+  signOut,
+  signInWithGoogle
+}: // createUserWithEmailAndPassword,
+// signInWithEmailAndPassword
+RoutesProps) => {
+  const [state, dispatch] = useReducer(reducer, {
+    user: null
+  });
 
-    useEffect(() => {
-      receiveUser(dispatch, user);
-    }, [user]);
+  useEffect(() => {
+    initReactGA();
+  }, []);
 
-    const contextValue: StoreContextValue = { ...state, dispatch };
+  useEffect(() => {
+    receiveUser(dispatch, user);
+  }, [user]);
 
-    return (
-      <Page>
-        <StoreContext.Provider value={contextValue}>
-          <Header />
-          <MainMenu />
-          <hr className={styles.hr} />
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            {user && adminEmails.includes(user.email) && (
-              <Route path="/catalogue/create/" component={CreateArticle} />
-            )}
-            {user && adminEmails.includes(user.email) && (
-              <Route path="/catalogue/:id/edit/" component={EditArticle} />
-            )}
-            <Route path="/catalogue/" component={Catalogue} />
-            <Route path="/recherche/" component={Recherche} />
-            {user && adminEmails.includes(user.email) && (
-              <Route path="/blog/create/" component={CreatePost} />
-            )}
-            {user && adminEmails.includes(user.email) && (
-              <Route path="/blog/:id/edit/" component={EditPost} />
-            )}
-            <Route path="/blog/:id/" component={Post} />
-            <Route path="/blog/" component={Blog} />
-            <Route path="/contact/" component={Contact} />
-            <Route path="/apropos/" component={Apropos} />
-          </Switch>
-          <hr className={styles.hr} />
-          <Footer
-            user={user}
-            signOut={signOut}
-            signInWithGoogle={signInWithGoogle}
-          />
-        </StoreContext.Provider>
-      </Page>
-    );
-  }
-);
+  const contextValue: StoreContextValue = { ...state, dispatch };
+
+  return (
+    <Page>
+      <StoreContext.Provider value={contextValue}>
+        <Header />
+        <MainMenu />
+        <hr className={styles.hr} />
+        <Routes user={user} />
+        <hr className={styles.hr} />
+        <Footer
+          user={user}
+          signOut={signOut}
+          signInWithGoogle={signInWithGoogle}
+        />
+      </StoreContext.Provider>
+    </Page>
+  );
+};
 
 export default withFirebaseAuth({
   providers,
