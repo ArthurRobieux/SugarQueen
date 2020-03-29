@@ -1,8 +1,3 @@
-@font-face {
-  font-family: GeosansLight;
-  src: url("../../../assets/font/GeosansLight.ttf");
-}
-
 .textInputContainer {
   width: 100%;
   margin-bottom: 20px;
@@ -19,7 +14,7 @@
   padding: 10px;
   font-size: 14px;
   box-sizing: border-box;
-  font-family: GeosansLight;
+  font-family: Roboto;
   width: 250px;
   &:focus {
     outline: none;

@@ -4,12 +4,12 @@
 }
 
 @font-face {
-  font-family: Assassin;
-  src: url("../assets/font/Assassin.ttf");
+  font-family: Roboto;
+  src: url("../assets/font/Roboto-Light.ttf");
 }
 
 :global(body) {
-  font-family: GeosansLight;
+  font-family: Roboto;
 }
 
 .hr {
