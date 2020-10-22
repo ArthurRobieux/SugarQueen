@@ -7,10 +7,13 @@ export const Apropos = () => {
   return (
     <div>
       <Title>A propos</Title>
-      <div className={styles.content}>
+      <div className={styles.contentAPropos}>
         Bonjour, je m'appelle Alice (alias Sugar Queen), bienvenue sur mon site
-        ! ​ Je suis passionnée de pâtisserie depuis un certain nombre d'années
-        maintenant c'est pourquoi j'ai décidé d'en faire mon métier pour vivre
+        ! ​
+      </div>
+      <div className={styles.contentAPropos}>
+        Je suis passionnée de pâtisserie depuis un certain nombre d'années
+        maintenant, c'est pourquoi j'ai décidé d'en faire mon métier pour vivre
         de ma passion ! ​ Après des études scientifiques j'ai donc passé un an à
         apprendre les techniques et autres secrets de la pâtisserie afin de
         passer mon CAP Pâtissier en candidat libre en 2017. Apprentissage pas
@@ -18,24 +21,32 @@ export const Apropos = () => {
         suis affairée à acquérir de l’expérience, et encore plus de technique
         mais aussi sur la réflexion du type d'entreprise que je voulais créer,
         sur ce que je voulais faire et ce que je voulais proposer aux gens. ​
-        Cela fait maintenant quelques mois que mon entreprise se construit petit
-        à petit, en commençant par ce site ! ​ J'espère que les photos vous
-        plairont et que j'aurais le plaisir de vous faire goûter mes
-        réalisations ! Bonne visite ! ​ PS: Si vous avez des questions,
-        n'hésitez pas à aller lire ma FAQ ci-dessous ou à me contacter via
-        l'onglet "Conctact" ou par email (sugarqueen.pro@gmail.com).
+      </div>
+      <div className={styles.contentAPropos}>
+        Cela fait maintenant un peu plus d'un an que mon entreprise se construit
+        petit à petit, en commençant par ce site ! ​ J'espère que les photos
+        vous plairont et que j'aurais le plaisir de vous faire goûter mes
+        réalisations !
+      </div>
+      <div className={styles.contentAPropos}>Bonne visite ! ​</div>
+      <div className={styles.lastContentAPropos}>
+        PS: Si vous avez des questions, n'hésitez pas à aller lire ma FAQ
+        ci-dessous ou à me contacter par email à l'adresse suivante :
+        sugarqueen.pro@gmail.com.
       </div>
       <Title>FAQ</Title>
       <b>Comment me contacter ?</b>
       <div className={styles.content}>
-        Tout simplement via l'onglet "Contact", ou par mail
-        (sugarqueen.pro@gmail.com).
+        Tout simplement par mail à l'adresse suivante :{" "}
+        <a href="mailto:sugarqueen.pro@gmail.com" className={styles.link}>
+          sugarqueen.pro@gmail.com
+        </a>
       </div>
       <b>Comment commander un gâteau ? </b>​
       <div className={styles.content}>
-        Rendez-vous dans l'onglet Contact, puis remplissez le formulaire avec
-        vos coordonnées et le détail de votre commande. Je répondrais ensuite au
-        plus vite.
+        Envoyez moi un mail avec le plus de détails possible concernant le(s)
+        gâteau(x) que vous aimeriez me commander, je ferais le devis et vous
+        répondrais au plus vite.
       </div>
       <b>Qu'est-ce que je peux commander ?</b>​
       <div className={styles.content}>
